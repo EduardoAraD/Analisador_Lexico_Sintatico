@@ -65,31 +65,33 @@ public class TabelaPalavraReservada {
         padrao.put(46,"WS");
         padrao.put(49,"COMMENT");
         
-        padrao.put(51,"ASSING_OP");
-        padrao.put(52,"DOTDOT");
-        padrao.put(53,"DOT");
-        padrao.put(54,"COLON");
-        padrao.put(55,"SEMICOLON");
-        padrao.put(56,"COMMA");
-        padrao.put(57,"LB");
-        padrao.put(58,"RB");
-        padrao.put(59,"LP");
-        padrao.put(60,"RP");
-        padrao.put(61,"EQUAL");
-        padrao.put(62,"LE");
-        padrao.put(63,"GE");
-        padrao.put(64,"NE");
-        padrao.put(65,"GT");
-        padrao.put(66,"LT");
-        padrao.put(67,"DIVIDE");
-        padrao.put(68,"MINUS");
-        padrao.put(69,"TIMES");
-        padrao.put(70,"PLUS");
-        padrao.put(71,"SIMB_POINTER");
-        padrao.put(72,"ENDER");
-        padrao.put(73,"BLANK");
-        padrao.put(74,"NEW LINE");
-        padrao.put(75,"TAB");
+        padrao.put(51,"ASSING_OP");     // :=
+        padrao.put(52,"DOTDOT");        // ..
+        padrao.put(53,"DOT");           // .
+        padrao.put(54,"COLON");         // :
+        padrao.put(55,"SEMICOLON");     // ;
+        padrao.put(56,"COMMA");         // ,
+        padrao.put(57,"LB");            // [
+        padrao.put(58,"RB");            // ]
+        padrao.put(59,"LP");            // (
+        padrao.put(60,"RP");            // )
+        padrao.put(61,"EQUAL");         // =
+        padrao.put(62,"LE");            // <=
+        padrao.put(63,"GE");            // >=
+        padrao.put(64,"NE");            // <>
+        padrao.put(65,"GT");            // >
+        padrao.put(66,"LT");            // <
+        padrao.put(67,"DIVIDE");        // /
+        padrao.put(68,"MINUS");         // -
+        padrao.put(69,"TIMES");         // *
+        padrao.put(70,"PLUS");          // +
+        padrao.put(71,"SIMB_POINTER");  // ^
+        padrao.put(72,"ENDER");         // @
+        padrao.put(73, "{");
+        padrao.put(74, "}");
+        padrao.put(75,"BLANK");         //
+        padrao.put(76,"NEW LINE");      // \n
+        padrao.put(77,"TAB");           // \t
         
     }
     
