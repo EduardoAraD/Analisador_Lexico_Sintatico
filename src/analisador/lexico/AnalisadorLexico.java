@@ -37,8 +37,11 @@ public class AnalisadorLexico {
             GerandoTokens.gerarTokens(); // Funcao que cria os tokens
             GerandoTokens.lerTokens(); // Funcao que imprime do console os tokens encontrados
             LeituraArquivo.GravacaodeResultado(); // Funcao que armazena o resultado no arquivo 
+            
+            System.out.println("\nFim de Programa\n");
+            
         } else{
-            System.out.println("Arquivo n√£o encontrado!");
+            System.out.println("Arquivo n„o encontrado!");
         }
         
     }

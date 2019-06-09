@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -56,10 +57,10 @@ public class LeituraArquivo {
             PrintWriter gravarArq = new PrintWriter(arq);
             
             // pegar token 
-            Token token = GerandoTokens.getNextToken();
+            ArrayList<Token> tokens = GerandoTokens.getTokens();
             TabelaPalavraReservada ts = new TabelaPalavraReservada();
             
-            while(token != null){
+            for(Token token : tokens){
                 if(token.isErro()){ // caso o token esteja com erro
                     if(token.getPadrao() == 45){ // diferencia os erros do padrao 'COMMENT' 
                         if(token.getNome_atributo().charAt(0) == '{')
@@ -77,8 +78,6 @@ public class LeituraArquivo {
                     else // para os restantes token
                         gravarArq.println("< "+token.getNumero_linha()+", "+token.getNome_atributo()+", token( "+ts.padrao.get(token.getPadrao())+" )>");
                 }
-                //pega o proximo token
-                token = GerandoTokens.getNextToken();
             }
 
             arq.close();

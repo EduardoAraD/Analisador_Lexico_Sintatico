@@ -45,11 +45,17 @@
 < 9, soma, token( id 3 )>
 < 9, :=, token( RELOP,ASSING_OP )>
 < 9, 10.7, token( NUM )>
+Erro na linha: 9, no padrao: DESCONHECIDO
+Caractere informado não existente no alfabeto na linha 9
 < 10, 
 , token( WS )>
 < 10, WRITELN, token( id 5 )>
 < 10, (, token( RELOP,LP )>
 < 10, 	, token( WS )>
+Erro na linha: 10, no padrao: STRING
+Era esperado ' na linha 10
+Erro na linha: 11, no padrao: STRING
+Era esperado ' na linha 11
 < 11, WHITELN, token( id 6 )>
 < 11, ;, token( RELOP,SEMICOLON )>
 < 12, 
@@ -100,6 +106,8 @@
 , token( WS )>
 < 19, WRITELN, token( id 5 )>
 < 19, (, token( RELOP,LP )>
+Erro na linha: 20, no padrao: STRING
+Era esperado ' na linha 20
 < 20, WRITELN, token( id 5 )>
 < 20, ;, token( RELOP,SEMICOLON )>
 < 21, 

@@ -41,6 +41,7 @@ public class Producoes {
                 }
             }
         }
+        GerandoTokens.voltaToken();
         return false;
     }
     public static boolean block(){
@@ -86,6 +87,7 @@ public class Producoes {
                 }
             }
         }
+        GerandoTokens.voltaToken();
         return false;
     }
     public static boolean label_declaration_part(){
@@ -105,6 +107,7 @@ public class Producoes {
                 }
             }
         }
+        GerandoTokens.voltaToken();
         return false;
     }
     public static boolean const_declaration_part(){
@@ -122,19 +125,102 @@ public class Producoes {
             }
             
         }
+        GerandoTokens.voltaToken();
         return false;
     }
     public static boolean const_definition(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 42) { // padrao IDENTIFIER
+    		token = GerandoTokens.getNextToken();
+    		if(token.getPadrao() == 61) { // simbolo =
+    			return _const();
+    		}
+    	}
+    	GerandoTokens.voltaToken();
         return false;
     }
     public static boolean type_declaration_part(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 34) { // palavra Reservada TYPE
+    		boolean funcionou = type_declaration();
+    		if(funcionou) {
+    			token = GerandoTokens.getNextToken();
+    			if(token.getPadrao() == 55) { // simbolo ;
+    				funcionou = type_declaration();
+    				while(funcionou) {
+    					token = GerandoTokens.getNextToken();
+    					if(token.getPadrao() != 55) { // simbolo ;
+    						return false;
+    					}else {
+    						funcionou = type_declaration();
+    					}
+    				}
+    				return true;
+    			}
+    		}
+    	}
+    	GerandoTokens.voltaToken();
         return false;
     }
-    public static void type_declaration(){}
-    public static void type(){}
-    public static void simple_type(){}
-    public static void _const(){}
-    public static void field_list(){}
+    public static boolean type_declaration(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 42) { // padrao IDENTIFIER
+    		token = GerandoTokens.getNextToken();
+    		if(token.getPadrao() == 61) { // simbolo =
+    			return type();
+    		}
+    	}
+    	GerandoTokens.voltaToken();
+    	return false;
+    }
+    public static boolean type(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 71) { // simbolo ^
+    		token = GerandoTokens.getNextToken();
+    		if(token.getPadrao() == 42) // padrao IDENTIFIER
+    			return true;
+    	} else if(token.getPadrao() == 2){ // palavra reservada ARRAY
+    		token = GerandoTokens.getNextToken();
+    		if(token.getPadrao() == 57) { // simbolo [
+    			boolean funcionou = simple_type();
+    			if(funcionou) { 
+    				token = GerandoTokens.getNextToken();
+    				while(token.getPadrao() == 56) { // simbolo ,
+    					if(!simple_type())
+    						return false;
+    					else
+    						token = GerandoTokens.getNextToken();
+    				}
+    				if(token.getPadrao() == 58) { // simbolo ]
+    					token = GerandoTokens.getNextToken();
+    					if(token.getPadrao() == 22) { // palavra Reservada OF
+    						return type();
+    					}
+    				}
+    			}
+    		}
+    	} else if(token.getPadrao() == 28) { // palavra Reservada RECORD
+    		if(field_list()) {
+    			token = GerandoTokens.getNextToken();
+    			if(token.getPadrao() == 12) // palavra Reservada END
+    				return true;
+    		}
+    	} else {
+    		GerandoTokens.voltaToken();
+    		return simple_type();
+    	}
+    	GerandoTokens.voltaToken();
+    	return false;
+    }
+    public static boolean simple_type(){
+    	return false;
+    }
+    public static boolean _const(){
+    	return false;
+    }
+    public static boolean field_list(){
+    	return false;
+    }
     public static boolean var_declaration_part(){
         return false;
     }

@@ -12,11 +12,11 @@ import java.util.ArrayList;
  * @author Eduardo
  */
 public class GerandoTokens {
-    private static ArrayList linhas = new ArrayList(); // as linhas pegas no arquivo
+    private static ArrayList<String> linhas = new ArrayList<String>(); // as linhas pegas no arquivo
     private static int numero_linha = 1; // controle de linhas
     private static String linha; // atual linha analisada
     private static int numero_caracter = 0; // controle de caracter da linha
-    private static ArrayList tokens = new ArrayList<Token>(); // armazenar tokens
+    private static ArrayList<Token> tokens = new ArrayList<Token>(); // armazenar tokens
     private static int numero_token = 0; // controle de tokens
     
     public static int getNumero_linha() {
@@ -86,10 +86,17 @@ public class GerandoTokens {
         if(numero_token < tokens.size()){
             Token tok = (Token)tokens.get(numero_token);
             numero_token++;
-            if(tok.isErro())
+            if(tok.isErro() || tok.getPadrao() == 46)
                 return getNextToken();
             return tok;
         }
         return null;
+    }
+    // volta um token
+    public static void voltaToken() {
+    	numero_token--;
+    }
+    public static ArrayList<Token> getTokens(){
+    	return tokens;
     }
 }
