@@ -213,32 +213,262 @@ public class Producoes {
     	return false;
     }
     public static boolean simple_type(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 42) { // padrao IDENTIFIER
+    		return true;
+    	} else if(token.getPadrao() == 59) { // simbolo (
+    		token = GerandoTokens.getNextToken();
+    		if(token.getPadrao() == 42) { // padrao IDENTIFIER
+    			token = GerandoTokens.getNextToken();
+    			while(token.getPadrao() == 56) { // simbolo ,
+    				token = GerandoTokens.getNextToken();
+    				if(token.getPadrao() != 42)
+    					return false;
+    				
+    				token = GerandoTokens.getNextToken();
+    			}
+    			if(token.getPadrao() == 60) { // simbolo )
+    				return true;
+    			}
+    		}
+    	} else {
+    		GerandoTokens.voltaToken();
+    		if(_const()) {
+    			token = GerandoTokens.getNextToken();
+    			if(token.getPadrao() == 52) { // simbolo ..
+    				return _const();
+    			}
+    		}
+    	}
+    	GerandoTokens.voltaToken();
     	return false;
     }
     public static boolean _const(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 44) { // padrao STRING
+    		return false;
+    	} else if(token.getPadrao() == 57) { // simbolo [
+    		token = GerandoTokens.getNextToken();
+    		if(token.getPadrao() == 70 || token.getPadrao() == 68) { // simbolo + ou -
+    			token = GerandoTokens.getNextToken();
+    			if(token.getPadrao() == 58) { // simbolo ]
+    				token = GerandoTokens.getNextToken();
+    				if (token.getPadrao() == 41 || token.getPadrao() == 42)
+    					return true;
+    			}
+    		}
+    	}
+    	GerandoTokens.voltaToken();
     	return false;
     }
     public static boolean field_list(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 57) { // simbolo [
+    		if(identifier_list()) {
+    			token = GerandoTokens.getNextToken();
+    			if(token.getPadrao() == 54) { // simbolo :
+    				if(type()) {
+    					token = GerandoTokens.getNextToken();
+    					while(token.getPadrao() == 55) { // simbolo ;
+    						return field_list();
+    					}
+    					GerandoTokens.voltaToken();
+    					return true;
+    				}
+    			}
+    		}
+    	}
+    	GerandoTokens.voltaToken();
     	return false;
     }
     public static boolean var_declaration_part(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 36) { // palavra Reservada VAR
+    		if(var_declaration()) {
+    			token = GerandoTokens.getNextToken();
+    			if(token.getPadrao() == 55) { // simbolo ;
+    				while(var_declaration()) {
+    					token = GerandoTokens.getNextToken();
+    					if(token.getPadrao() != 55) // simbolo ;
+    						return false;
+    				}
+    				return true;
+    			}
+    		}
+    	}
+    	GerandoTokens.voltaToken();
         return false;
     }
-    public static void var_declaration(){}
+    public static boolean var_declaration(){
+    	if(identifier_list()) {
+    		Token token = GerandoTokens.getNextToken();
+    		if(token.getPadrao() == 54) { // simbolo :
+    			return type();
+    		}
+    		GerandoTokens.voltaToken();
+    	}
+    	return false;
+    }
     public static boolean identifier_list(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 42) { // padrao IDENTIFIER
+    		token = GerandoTokens.getNextToken();
+    		while(token.getPadrao() == 56) { // simbolo ,
+    			token = GerandoTokens.getNextToken();
+    			if(token.getPadrao() != 42) // padrao IDENTIFIER 
+    				return false;
+    			token = GerandoTokens.getNextToken();
+    		}
+    		GerandoTokens.voltaToken();
+    		return true;
+    	}
+    	GerandoTokens.voltaToken();
         return false;
     }
     public static boolean subroutine_declaration_part(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 73) { // simbolo {
+    		if(procedure_declaration() || function_declaration()) {
+    			token = GerandoTokens.getNextToken();
+    			if(token.getPadrao() == 55) { // simbolo ;
+    				token = GerandoTokens.getNextToken();
+    				if(token.getPadrao() == 74) // simbolo }
+    					return true;
+    			}
+    		}
+    	}
+    	GerandoTokens.voltaToken();
         return false;
     }
-    public static void procedure_declaration(){}
-    public static void function_declaration(){}
-    public static void formal_parameters(){}
-    public static void param_section(){}
+    public static boolean procedure_declaration(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 25) { // palavra Reservada PROCEDURE
+    		token = GerandoTokens.getNextToken();
+    		if(token.getPadrao() == 42) { // padrao IDENTIFIER
+    			token = GerandoTokens.getNextToken();
+    			if(token.getPadrao() == 57) { // simbolo [
+    				if(formal_parameters()) {
+    					token = GerandoTokens.getNextToken();
+    					if(token.getPadrao() == 58) { // simbolo ]
+    						token = GerandoTokens.getNextToken();
+    						if(token.getPadrao() == 55) { // simbolo ;
+    							return block();
+    						}
+    					}
+    				}
+    			}
+    		}
+    	}
+    	GerandoTokens.voltaToken();
+    	return false;
+    }
+    public static boolean function_declaration(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 14) {// palavra Reservada FUNCTION
+    		token = GerandoTokens.getNextToken();
+    		if(token.getPadrao() == 42) { // padrao IDENTIFIER
+    			token = GerandoTokens.getNextToken();
+    			if(token.getPadrao() == 57) { // simbolo [
+    				if(formal_parameters()) {
+    					token = GerandoTokens.getNextToken();
+    					if(token.getPadrao() == 58) { // simbolo ]
+    						token = GerandoTokens.getNextToken();
+    						if(token.getPadrao() == 54) { // simbolo :
+    							token = GerandoTokens.getNextToken();
+    							if(token.getPadrao() == 42) { // padrao IDENTIFIER
+    								token = GerandoTokens.getNextToken();
+    								if(token.getPadrao() == 55) { // simbolo ;
+    									return block();
+    								}
+    							}
+    						}
+    					}
+    				}
+    			}
+    		}
+    	}
+    	GerandoTokens.voltaToken();
+    	return false;
+    }
+    public static boolean formal_parameters(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 59) { // simbolo (
+    		if(param_section()) {
+    			token = GerandoTokens.getNextToken();
+    			while(token.getPadrao() == 55) { // simbolo ;
+    				if(!param_section())
+    					return false;
+    				token = GerandoTokens.getNextToken();
+    			}
+    			GerandoTokens.voltaToken();
+    			return true;
+    		}
+    	}
+    	GerandoTokens.voltaToken();
+    	return false;
+    }
+    public static boolean param_section(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 57) { //simbolo [
+    		token = GerandoTokens.getNextToken();
+    		if(token.getPadrao() == 36) { // palavra Reservada VAR
+    			token = GerandoTokens.getNextToken();
+    			if(token.getPadrao() == 58) { // simbolo ]
+    				if(identifier_list()) {
+    					token = GerandoTokens.getNextToken();
+    					if(token.getPadrao() == 54) { // simbolo :
+    						token = GerandoTokens.getNextToken();
+    						if(token.getPadrao() == 42) { // simbolo IDENTIFIER
+    							return true;
+    						}
+    					}
+    				}
+    			}
+    		}
+    	} else if(token.getPadrao() == 14) { // palavra Reservada FUNCTION
+    		if(identifier_list()) {
+    			token = GerandoTokens.getNextToken();
+				if(token.getPadrao() == 54) { // simbolo :
+					token = GerandoTokens.getNextToken();
+					if(token.getPadrao() == 42) { // simbolo IDENTIFIER
+						return true;
+					}
+				}
+    		}
+    	} else if(token.getPadrao() == 25) { // palavra Reservada PROCEDURE
+    		return identifier_list();
+    	}
+    	GerandoTokens.voltaToken();
+    	return false;
+    }
     public static boolean compound_statement(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 3) { // palavra Reservada BEGIN
+    		if(labeled_statement()) {
+    			token = GerandoTokens.getNextToken();
+    			while(token.getPadrao() == 55) { // simbolo ;
+    				if(!labeled_statement()) {
+    					return false;
+    				}
+    				token = GerandoTokens.getNextToken();
+    			}
+    			if(token.getPadrao() == 12) { // palavra Reservada END
+    				return true;
+    			}
+    		}
+    	}
+    	GerandoTokens.voltaToken();
         return false;
     }
-    public static void labeled_statement(){}
+    public static boolean labeled_statement(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 57) { // simbolo [
+    		token = GerandoTokens.getNextToken();
+    		if(token.getPadrao() == )
+    	}
+    	GerandoTokens.voltaToken();
+    	return false;
+    }
     public static void statement(){}
     public static void assing_statement(){}
     public static void procedure_call(){}
