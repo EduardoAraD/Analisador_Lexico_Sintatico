@@ -110,6 +110,8 @@ public class TabelaPalavraReservada {
                     tok = palavra.charAt(1);
                     if(tok == 'F')
                         return 16;
+                    else if(tok == 'N')
+                    	return 39;
                 } else if(tok == 'O'){
                     tok = palavra.charAt(1);
                     if(tok == 'F')

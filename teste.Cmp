@@ -1,24 +1,21 @@
-PROGRAM PZIM;
+PROGRAM PZIM (edt, ttf);
 
-VAR ano: INTEGER;
-	anoatual: (*comentario*) INTEGER;
+VAR ano: INTEGER ;
+	anoatual: INTEGER;
 	soma: INTEGER;	
 BEGIN
-soma := 10..7
-soma := 10e++12
-soma := 10.7# 
-   WRITELN (	'O ano em que você nasceu	');
+   WRITELN (	'O ano em que você nasceu'	);
    WHITELN;
    WRITELN;
    WRITELN;
    WRITELN ('Quantos anos você fez ou irá fazer no ano atual?');
    READLN (ano);
-   WRITELN ('Em que ano você está');
+   WRITELN ('Em que ano você está?');
    READLN (anoatual);
    soma := anoatual - ano;
-   WRITELN ('Você nasceu em , soma );
+   WRITELN ('Você nasceu em', soma );
    WRITELN;
    WRITELN;
    WRITELN;
    WRITELN
-;)
+END.

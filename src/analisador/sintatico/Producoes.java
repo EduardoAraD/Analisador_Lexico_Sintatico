@@ -20,28 +20,31 @@ public class Producoes {
             token = GerandoTokens.getNextToken();
             if(token.getPadrao() == 42){ // padrao IDENTIFIER
                 token = GerandoTokens.getNextToken();
-                if(token.getPadrao() == 57){ // simbolo [
+                if(token.getPadrao() == 59){ // simbolo (
+                    boolean funcionou = identifier_list(); 
                     token = GerandoTokens.getNextToken();
-                    if(token.getPadrao() == 59){ // simbolo (
-                        boolean funcionou = identifier_list(); 
+                    if(funcionou && token.getPadrao() == 60){ // simbolo )
                         token = GerandoTokens.getNextToken();
-                        if(funcionou && token.getPadrao() == 60){ // simbolo )
+                        if(token.getPadrao() == 58){ // simbolo ]
                             token = GerandoTokens.getNextToken();
-                            if(token.getPadrao() == 58){ // simbolo ]
+                            if(token.getPadrao() == 55){ // simbolo ;
+                                funcionou = block();
                                 token = GerandoTokens.getNextToken();
-                                if(token.getPadrao() == 55){ // simbolo ;
-                                    funcionou = block();
-                                    token = GerandoTokens.getNextToken();
-                                    if(funcionou && token.getPadrao() == 53) // simbolo .
-                                        return true;
-                                }
+                                if(funcionou && token.getPadrao() == 53) // simbolo .
+                                    return true;
                             }
                         }
                     }
+                } else if(token.getPadrao() == 55) { // simbolo ;
+                	if(block()) {
+                		token = GerandoTokens.getNextToken();
+                        if(token.getPadrao() == 53) // simbolo .
+                            return true;
+                	}
                 }
             }
         }
-        GerandoTokens.voltaToken();
+        //GerandoTokens.voltaToken();
         return false;
     }
     public static boolean block(){

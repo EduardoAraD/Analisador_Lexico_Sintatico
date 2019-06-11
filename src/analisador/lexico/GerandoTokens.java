@@ -18,12 +18,16 @@ public class GerandoTokens {
     private static int numero_caracter = 0; // controle de caracter da linha
     private static ArrayList<Token> tokens = new ArrayList<Token>(); // armazenar tokens
     private static int numero_token = 0; // controle de tokens
+    private static boolean erroLexico = false;
     
     public static int getNumero_linha() {
         return numero_linha;
     }
     public static String getLinha() {
         return linha;
+    }
+    public static boolean getErro() {
+    	return erroLexico;
     }
     // adiciona as linhas que foram lidas no arquivo
     public static void addLinha(String linha){
@@ -95,6 +99,8 @@ public class GerandoTokens {
     // volta um token
     public static void voltaToken() {
     	numero_token--;
+    	while(tokens.get(numero_token).isErro() || tokens.get(numero_token).getPadrao() == 46)
+    		numero_token--;
     }
     public static ArrayList<Token> getTokens(){
     	return tokens;
