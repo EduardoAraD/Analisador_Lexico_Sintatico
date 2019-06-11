@@ -464,22 +464,243 @@ public class Producoes {
     	Token token = GerandoTokens.getNextToken();
     	if(token.getPadrao() == 57) { // simbolo [
     		token = GerandoTokens.getNextToken();
-    		if(token.getPadrao() == )
+    		if(token.getPadrao() == 41) { // padrao NUMBER
+    			token = GerandoTokens.getNextToken();
+    			if(token.getPadrao() == 54) { // simbolo :
+    				token = GerandoTokens.getNextToken();
+    				if(token.getPadrao() == 58) { // simbolo ]
+    					return statement();
+    				}
+    			}
+    		}
     	}
     	GerandoTokens.voltaToken();
     	return false;
     }
-    public static void statement(){}
-    public static void assing_statement(){}
-    public static void procedure_call(){}
-    public static void if_statement(){}
-    public static void while_statement(){}
-    public static void repeat_statement(){}
-    public static void for_statement(){}
-    public static void with_statement(){}
-    public static void case_statement(){}
-    public static void _case(){}
-    public static void goto_statement(){}
+    public static boolean statement(){
+    	Token token = GerandoTokens.getNextToken();
+    	GerandoTokens.voltaToken();
+    	if(token.getPadrao() == 42) { // padrao IDENTIFIER
+    		if(assing_statement())
+    			return true;
+    		else if(procedure_call())
+    			return true;
+    	} else if(token.getPadrao() == 16) // palavra Reservada IF
+    		return if_statement();
+    	else if(token.getPadrao() == 37) // palavra Reservada WHILE
+    		return while_statement();
+    	else if(token.getPadrao() == 29) // palavra Reservada REPEAT
+    		return repeat_statement();
+    	else if(token.getPadrao() == 13) // palavra Reservada FOR
+    		return for_statement();
+    	else if(token.getPadrao() == 38) // palavra Rservada WITH
+    		return with_statement();
+    	else if(token.getPadrao() == 15) // palavra Reservada GOTO
+    		return goto_statement();
+    	else if(token.getPadrao() == 3) // pakavra Rservada BEGIN
+    		return compound_statement();
+    	else
+    		return true;
+    }
+    public static boolean assing_statement(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 42) { // padrao IDENTIFIER
+    		token = GerandoTokens.getNextToken();
+    		if(token.getPadrao() == 57) { // simbolo [
+    			if(infipo()) {
+    				token = GerandoTokens.getNextToken();
+    				if(token.getPadrao() == 58) { // simbolo ]
+    					token = GerandoTokens.getNextToken();
+    					if(token.getPadrao() == 51) { // simbolo :=
+    						return expr();
+    					}
+    				}
+    			}
+    		}
+    	}
+    	GerandoTokens.voltaToken();
+    	return false;
+    }
+    public static boolean procedure_call(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 42) { // padrao IDENTIFIER
+    		token = GerandoTokens.getNextToken();
+    		if(token.getPadrao() == 57) { // simbolo [
+    			token = GerandoTokens.getNextToken();
+    			if(token.getPadrao() == 59) { // simbolo (
+    				if(expr_list()) {
+    					token = GerandoTokens.getNextToken();
+    					if(token.getPadrao() == 60) { // simbolo )
+    						token = GerandoTokens.getNextToken();
+    						if(token.getPadrao() == 58) { // simbolo ]
+    							return true;
+    						}
+    					}
+    				}
+    			}
+    		}
+    	}
+    	return false;
+    }
+    public static boolean if_statement(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 16) { // palavra Reservada IF
+    		if(expr()) {
+    			token = GerandoTokens.getNextToken();
+    			if(token.getPadrao() == 32) { // palavra Reservada THEN
+    				if(statement()) {
+    					token = GerandoTokens.getNextToken();
+    					if(token.getPadrao() == 57) { // simbolo [
+    						token = GerandoTokens.getNextToken();
+    						if(token.getPadrao() == 11) { // palavra Reservada ELSE
+    							if(statement()) {
+    								token = GerandoTokens.getNextToken();
+    								if(token.getPadrao() == 58) { // simbolo ]
+    									return true;
+    								}
+    							}
+    						}
+    					}
+    				}
+    			}
+    		}
+    	}
+    	GerandoTokens.voltaToken();
+    	return false;
+    }
+    public static boolean while_statement(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 37) { // palavra Reservada WHILE
+    		if(expr()) {
+    			token = GerandoTokens.getNextToken();
+    			if(token.getPadrao() == 9) { // palavra Reservada DO
+    				return statement();
+    			}
+    		}
+    	}
+    	GerandoTokens.voltaToken();
+    	return false;
+    }
+    public static boolean repeat_statement(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 29) { // palavra Reservada REPEAT
+    		if(statement()) {
+    			token = GerandoTokens.getNextToken();
+    			while(token.getPadrao() == 55) { // simbolo ;
+    				if(!statement())
+    					return false;
+    				token = GerandoTokens.getNextToken();
+    			}
+    			if(token.getPadrao() == 35) { // palavra Reservada UNTIL
+    				return expr();
+    			}
+    		}
+    	}
+    	GerandoTokens.voltaToken();
+    	return false;
+    }
+    public static boolean for_statement(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 13) { // palavra Reservada FOR
+    		token = GerandoTokens.getNextToken();
+    		if(token.getPadrao() == 42) { // padrao IDENTIFIER
+    			if(infipo()) {
+    				token = GerandoTokens.getNextToken();
+    				if(token.getPadrao() == 51) { // simbolo :=
+    					if(expr) {
+    						token = GerandoTokens.getNextToken();
+    						if(token.getPadrao() == 33 || token.getPadrao() == 10) { // palavra Reservada TO ou DOWNTO
+    							if(expr()) {
+    								token = GerandoTokens.getNextToken();
+    								if(token.getPadrao() == 9) { // palavra Reservada DO
+    									return statement();
+    								}
+    							}
+    						}
+    					}
+    				}
+    			}
+    		}
+    	}
+    	GerandoTokens.voltaToken();
+    	return false;
+    }
+    public static boolean with_statement(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 38) { // palavra Reservada WITH
+    		token = GerandoTokens.getNextToken();
+    		if(token.getPadrao() == 42) { // padrao IDENTIFIER
+    			if(infipo()) {
+    				token = GerandoTokens.getNextToken();
+    				while(token.getPadrao() == 56) { // simbolo ,
+    					token = GerandoTokens.getNextToken();
+    					if(token.getPadrao() != 42) // padrao IDENTIFIER
+    						return false;
+    					else if(!infipo())
+    						return false;
+    					token = GerandoTokens.getNextToken();
+    				}
+    				if(token.getPadrao() == 9) {
+    					return statement();
+    				}
+    			}
+    		}
+    	}
+    	GerandoTokens.voltaToken();
+    	return false;
+    }
+    public static boolean case_statement(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 59) { // simbolo (
+    		if(expr()) {
+    			token = GerandoTokens.getNextToken();
+    			if(token.getPadrao() == 22) { // palavra Reservada OF
+    				if(_case()) {
+    					token = GerandoTokens.getNextToken();
+    					while(token.getPadrao() == 55) { // simbolo ;
+    						if(!_case()) {
+    							return false;
+    						}
+    						token = GerandoTokens.getNextToken();
+    					}
+    					if(token.getPadrao() == 12) {
+    						return true;
+    					}
+    				}
+    			}
+    		}
+    	}
+    	GerandoTokens.voltaToken();
+    	return false;
+    }
+    public static boolean _case(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 59) { // simbolo (
+    		token = GerandoTokens.getNextToken();
+    		if(token.getPadrao() == 41 || token.getPadrao() == 42) { // padrao NUMBER ou IDENTIFIER
+    			token = GerandoTokens.getNextToken();
+    			if(token.getPadrao() == 60) { // simbolo )
+    				token = GerandoTokens.getNextToken();
+    				if(token.getPadrao() == 54){ // simbolo :
+    					return statement();
+    				}
+    			}
+    		}
+    	}
+    	GerandoTokens.voltaToken();
+    	return false;
+    }
+    public static boolean goto_statement(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 15) { // palavra Reservada GOTO
+    		token = GerandoTokens.getNextToken();
+    		if(token.getPadrao() == 41) { // padrao NUMBER
+    			return true;
+    		}
+    	}
+    	GerandoTokens.voltaToken();
+    	return false;
+    }
     public static void infipo(){}
     public static void expr_list(){}
     public static void expr(){}
