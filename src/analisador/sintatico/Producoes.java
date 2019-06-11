@@ -501,6 +501,7 @@ public class Producoes {
     		return compound_statement();
     	else
     		return true;
+		return false;
     }
     public static boolean assing_statement(){
     	Token token = GerandoTokens.getNextToken();
@@ -607,7 +608,7 @@ public class Producoes {
     			if(infipo()) {
     				token = GerandoTokens.getNextToken();
     				if(token.getPadrao() == 51) { // simbolo :=
-    					if(expr) {
+    					if(expr()) {
     						token = GerandoTokens.getNextToken();
     						if(token.getPadrao() == 33 || token.getPadrao() == 10) { // palavra Reservada TO ou DOWNTO
     							if(expr()) {
@@ -701,14 +702,173 @@ public class Producoes {
     	GerandoTokens.voltaToken();
     	return false;
     }
-    public static void infipo(){}
-    public static void expr_list(){}
-    public static void expr(){}
-    public static void relop(){}
-    public static void simple_expr(){}
-    public static void addop(){}
-    public static void term(){}
-    public static void mulop(){}
-    public static void factor(){}
+    public static boolean infipo(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 57) { // simbolo [
+    		if(expr()) {
+    			token = GerandoTokens.getNextToken();
+    			while(token.getPadrao() == 56) { // simbolo ,
+    				if(!expr())
+    					return false;
+    				token = GerandoTokens.getNextToken();
+    			}
+    			if(token.getPadrao() == 58) { // simbolo ]
+    				return infipo();
+    			}
+    		}
+    	} else if(token.getPadrao() == 53) { // simbolo .
+    		token = GerandoTokens.getNextToken();
+    		if(token.getPadrao() == 42) { // padrao IDENTIFIER
+    			return infipo();
+    		}
+    	} else if(token.getPadrao() == 71) { // simbolo ^
+    		return infipo();
+    	} else {
+	    	GerandoTokens.voltaToken();
+	    	return true;
+    	}
+    	return false;
+    }
+    public static boolean expr_list(){
+    	if(expr()) {
+    		Token token = GerandoTokens.getNextToken();
+			while(token.getPadrao() == 56) { // simbolo ,
+				if(!expr())
+					return false;
+				token = GerandoTokens.getNextToken();
+			}
+			GerandoTokens.voltaToken();
+			return true;
+    	}
+    	return false;
+    }
+    public static boolean expr(){
+    	if(simple_expr()) {
+    		Token token = GerandoTokens.getNextToken();
+    		if(token.getPadrao() == 57) { // simbolo [
+    			if(relop()) {
+    				if(simple_expr()) {
+    					token = GerandoTokens.getNextToken();
+    					if(token.getPadrao() == 58) { // simbolo ]
+    						return true;
+    					}
+    				}
+    			}
+    		}
+    	}
+    	return false;
+    }
+    public static boolean relop(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 61) // simbolo =
+    		return true;
+    	else if(token.getPadrao() == 66) // simbolo <
+    		return true;
+    	else if(token.getPadrao() == 65) // simbolo >
+    		return true;
+    	else if(token.getPadrao() == 64) // simbolo <>
+    		return true;
+    	else if(token.getPadrao() == 63) // simbolo >=
+    		return true;
+    	else if(token.getPadrao() == 62) // simbolo <=
+    		return true;
+    	else if(token.getPadrao() == 39) // plavra Reservada IN
+    		return true;
+    	else 
+    		return false;
+    }
+    public static boolean simple_expr(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 57) { // simbolo [
+    		token = GerandoTokens.getNextToken();
+    		if(token.getPadrao() == 70 || token.getPadrao() == 68) { //simbolo + ou -
+    			token = GerandoTokens.getNextToken();
+    			if(token.getPadrao() == 58) { // simbolo ]
+	    			if(term()) {
+	    				while(addop()) {
+	    					if(!term())
+	    						return false;
+	    				}
+	    				return true;
+	    			}
+    			}
+    		}
+    	}
+    	GerandoTokens.voltaToken();
+    	return false;
+    }
+    public static boolean addop(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 70) //simbolo +
+    		return true;
+    	else if(token.getPadrao() == 68) // simbolo -
+    		return true;
+    	else if(token.getPadrao() == 23) // palavra Reservada OR
+    		return true;
+    	else 
+    		GerandoTokens.voltaToken();
+    	return false;
+    }
+    public static boolean term(){
+    	if(factor()) {
+    		while(mulop()) {
+    			if(!factor())
+    				return false;
+    		}
+    		return true;
+    	}
+    	return false;
+    }
+    public static boolean mulop(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 69) // simbolo *
+    		return true;
+    	else if(token.getPadrao() == 67) // simbolo /
+    		return true;
+    	else if(token.getPadrao() == 8) // palavra Reservada DIV
+    		return true;
+    	else if(token.getPadrao() == 19) // palavra Reservada MOD
+    		return true;
+    	else if(token.getPadrao() == 1) // palavra Reservada AND
+    		return true;
+    	else
+    		GerandoTokens.voltaToken();
+    	return false;
+    }
+    public static boolean factor(){
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 42) { // padrao IDENTIFIER
+    		if(infipo())
+    			return true;
+    		token = GerandoTokens.getNextToken();
+    		if(token.getPadrao() == 57) { // simbolo [
+    			token = GerandoTokens.getNextToken();
+    			if(token.getPadrao() == 59) { // simbolo (
+    				if(expr_list()) {
+    					token = GerandoTokens.getNextToken();
+    					if(token.getPadrao() == 60) { // simbolo )
+    						token = GerandoTokens.getNextToken();
+    						if(token.getPadrao() == 58) // simbolo ]
+    							return true;
+    					}
+    				}
+    			}
+    		}
+    	} else if(token.getPadrao() == 41) // padrao NUMBER
+    		return true;
+    	else if(token.getPadrao() == 44) // padrao STRING
+    		return true;
+    	else if(token.getPadrao() == 59) { // simbolo (
+    		if(expr()) {
+    			token = GerandoTokens.getNextToken();
+    			if(token.getPadrao() == 60) // simbolo )
+    				return true;
+    		}
+    	} else if(token.getPadrao() == 21) { // palavra Reservada NOT
+    		return factor();
+    	}
+    	GerandoTokens.voltaToken();
+    	return false;
+    }
     
 }

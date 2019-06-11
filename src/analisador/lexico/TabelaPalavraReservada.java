@@ -56,6 +56,7 @@ public class TabelaPalavraReservada {
         padrao.put(36,"VAR");
         padrao.put(37,"WHILE");
         padrao.put(38,"WITH");
+        padrao.put(39,"IN");
         
         padrao.put(41,"NUM");
         padrao.put(42,"IDENTIFIER");
