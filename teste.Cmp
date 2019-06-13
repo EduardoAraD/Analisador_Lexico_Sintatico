@@ -1,8 +1,8 @@
-PROGRAM PZIM (edt, ttf);
+PROGRAM PZIM;
 
-VAR ano: INTEGER ;
-	anoatual: INTEGER;
-	soma: INTEGER;	
+VAR ano: INTEGER;
+    anoatual: INTEGER;
+    soma: INTEGER;
 BEGIN
    WRITELN (	'O ano em que você nasceu'	);
    WHITELN;
