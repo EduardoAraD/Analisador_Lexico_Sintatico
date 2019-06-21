@@ -4,7 +4,7 @@ VAR ano: INTEGER;
     anoatual: INTEGER;
     soma: INTEGER;
 BEGIN
-   WRITELN (	'O ano em que você nasceu'	);
+   WRITELN ('O ano em que você nasceu');
    WHITELN;
    WRITELN;
    WRITELN;

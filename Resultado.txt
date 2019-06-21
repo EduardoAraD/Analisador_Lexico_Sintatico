@@ -10,118 +10,100 @@
 < 3, INTEGER, token( INTEGER )>
 < 3, ;, token( RELOP,SEMICOLON )>
 < 4, 
-	, token( WS )>
+, token( WS )>
 < 4, anoatual, token( id 2 )>
 < 4, :, token( RELOP,COLON )>
 < 4, INTEGER, token( INTEGER )>
 < 4, ;, token( RELOP,SEMICOLON )>
 < 5, 
-	, token( WS )>
+, token( WS )>
 < 5, soma, token( id 3 )>
 < 5, :, token( RELOP,COLON )>
 < 5, INTEGER, token( INTEGER )>
 < 5, ;, token( RELOP,SEMICOLON )>
-< 6, 	
+< 6, 
 , token( WS )>
 < 6, BEGIN, token( BEGIN )>
 < 7, 
 , token( WS )>
-< 7, soma, token( id 3 )>
-< 7, :=, token( RELOP,ASSING_OP )>
-< 7, 10, token( NUM )>
-< 7, .., token( RELOP,DOTDOT )>
-< 7, 7, token( NUM )>
+< 7, WRITELN, token( id 4 )>
+< 7, (, token( RELOP,LP )>
+< 7, 'O ano em que você nasceu', token( STRING )>
+< 7, ), token( RELOP,RP )>
+< 7, ;, token( RELOP,SEMICOLON )>
 < 8, 
 , token( WS )>
-< 8, soma, token( id 3 )>
-< 8, :=, token( RELOP,ASSING_OP )>
-< 8, 10, token( NUM )>
-< 8, e, token( id 4 )>
-< 8, +, token( RELOP,PLUS )>
-< 8, +, token( RELOP,PLUS )>
-< 8, 12, token( NUM )>
+< 8, WHITELN, token( id 5 )>
+< 8, ;, token( RELOP,SEMICOLON )>
 < 9, 
 , token( WS )>
-< 9, soma, token( id 3 )>
-< 9, :=, token( RELOP,ASSING_OP )>
-< 9, 10.7, token( NUM )>
-Erro na linha: 9, no padrao: DESCONHECIDO
-Caractere informado não existente no alfabeto na linha 9
+< 9, WRITELN, token( id 4 )>
+< 9, ;, token( RELOP,SEMICOLON )>
 < 10, 
 , token( WS )>
-< 10, WRITELN, token( id 5 )>
-< 10, (, token( RELOP,LP )>
-< 10, 	, token( WS )>
-Erro na linha: 10, no padrao: STRING
-Era esperado ' na linha 10
-Erro na linha: 11, no padrao: STRING
-Era esperado ' na linha 11
-< 11, WHITELN, token( id 6 )>
+< 10, WRITELN, token( id 4 )>
+< 10, ;, token( RELOP,SEMICOLON )>
+< 11, 
+, token( WS )>
+< 11, WRITELN, token( id 4 )>
+< 11, (, token( RELOP,LP )>
+< 11, 'Quantos anos você fez ou irá fazer no ano atual?', token( STRING )>
+< 11, ), token( RELOP,RP )>
 < 11, ;, token( RELOP,SEMICOLON )>
 < 12, 
 , token( WS )>
-< 12, WRITELN, token( id 5 )>
+< 12, READLN, token( id 6 )>
+< 12, (, token( RELOP,LP )>
+< 12, ano, token( id 1 )>
+< 12, ), token( RELOP,RP )>
 < 12, ;, token( RELOP,SEMICOLON )>
 < 13, 
 , token( WS )>
-< 13, WRITELN, token( id 5 )>
+< 13, WRITELN, token( id 4 )>
+< 13, (, token( RELOP,LP )>
+< 13, 'Em que ano você está?', token( STRING )>
+< 13, ), token( RELOP,RP )>
 < 13, ;, token( RELOP,SEMICOLON )>
 < 14, 
 , token( WS )>
-< 14, WRITELN, token( id 5 )>
+< 14, READLN, token( id 6 )>
 < 14, (, token( RELOP,LP )>
-< 14, 'Quantos anos você fez ou irá fazer no ano atual?', token( STRING )>
+< 14, anoatual, token( id 2 )>
 < 14, ), token( RELOP,RP )>
 < 14, ;, token( RELOP,SEMICOLON )>
 < 15, 
 , token( WS )>
-< 15, READLN, token( id 7 )>
-< 15, (, token( RELOP,LP )>
+< 15, soma, token( id 3 )>
+< 15, :=, token( RELOP,ASSING_OP )>
+< 15, anoatual, token( id 2 )>
+< 15, -, token( RELOP,MINUS )>
 < 15, ano, token( id 1 )>
-< 15, ), token( RELOP,RP )>
 < 15, ;, token( RELOP,SEMICOLON )>
 < 16, 
 , token( WS )>
-< 16, WRITELN, token( id 5 )>
+< 16, WRITELN, token( id 4 )>
 < 16, (, token( RELOP,LP )>
-< 16, 'Em que ano você está', token( STRING )>
+< 16, 'Você nasceu em', token( STRING )>
+< 16, ,, token( RELOP,COMMA )>
+< 16, soma, token( id 3 )>
 < 16, ), token( RELOP,RP )>
 < 16, ;, token( RELOP,SEMICOLON )>
 < 17, 
 , token( WS )>
-< 17, READLN, token( id 7 )>
-< 17, (, token( RELOP,LP )>
-< 17, anoatual, token( id 2 )>
-< 17, ), token( RELOP,RP )>
+< 17, WRITELN, token( id 4 )>
 < 17, ;, token( RELOP,SEMICOLON )>
 < 18, 
 , token( WS )>
-< 18, soma, token( id 3 )>
-< 18, :=, token( RELOP,ASSING_OP )>
-< 18, anoatual, token( id 2 )>
-< 18, -, token( RELOP,MINUS )>
-< 18, ano, token( id 1 )>
+< 18, WRITELN, token( id 4 )>
 < 18, ;, token( RELOP,SEMICOLON )>
 < 19, 
 , token( WS )>
-< 19, WRITELN, token( id 5 )>
-< 19, (, token( RELOP,LP )>
-Erro na linha: 20, no padrao: STRING
-Era esperado ' na linha 20
-< 20, WRITELN, token( id 5 )>
-< 20, ;, token( RELOP,SEMICOLON )>
+< 19, WRITELN, token( id 4 )>
+< 19, ;, token( RELOP,SEMICOLON )>
+< 20, 
+, token( WS )>
+< 20, WRITELN, token( id 4 )>
 < 21, 
 , token( WS )>
-< 21, WRITELN, token( id 5 )>
-< 21, ;, token( RELOP,SEMICOLON )>
-< 22, 
-, token( WS )>
-< 22, WRITELN, token( id 5 )>
-< 22, ;, token( RELOP,SEMICOLON )>
-< 23, 
-, token( WS )>
-< 23, WRITELN, token( id 5 )>
-< 24, 
-, token( WS )>
-< 24, ;, token( RELOP,SEMICOLON )>
-< 24, ), token( RELOP,RP )>
+< 21, END, token( END )>
+< 21, ., token( RELOP,DOT )>

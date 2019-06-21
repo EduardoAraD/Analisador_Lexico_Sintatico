@@ -17,8 +17,7 @@ public class Producoes {
     public static boolean program(){
         Token token = GerandoTokens.getNextToken();
         if(token.getPadrao() == 26){ // palavra reservada PROGRAM
-            token = GerandoTokens.getNextToken();
-            if(token.getPadrao() == 42){ // padrao IDENTIFIER
+            if(identifier()){
                 token = GerandoTokens.getNextToken();
                 if(token.getPadrao() == 59){ // simbolo (
                     if(identifier_list()){
@@ -42,9 +41,9 @@ public class Producoes {
                 }
                 // erro Falta de ;
             }
-            // falta de IDENTIFIER
+            // erro falta funcao IDENTIFIER
         }
-        //GerandoTokens.voltaToken(); falta de PROGRAM
+        //GerandoTokens.voltaToken(); erro falta de PROGRAM
         return false;
     }
     public static boolean block(){
@@ -77,7 +76,7 @@ public class Producoes {
             // Erro falta de NUM
         }
         GerandoTokens.voltaToken();
-        return false;
+        return false; // erro falta palavra LABEL
     }
     public static boolean const_declaration_part(){
         Token token = GerandoTokens.getNextToken();
@@ -97,19 +96,17 @@ public class Producoes {
             // erro falta const_definition()
         }
         GerandoTokens.voltaToken();
-        return false;
+        return false; // erro, falta de palavra CONST
     }
     public static boolean const_definition(){
-    	Token token = GerandoTokens.getNextToken();
-    	if(token.getPadrao() == 42) { // padrao IDENTIFIER
-            token = GerandoTokens.getNextToken();
+    	if(identifier()) {
+            Token token = GerandoTokens.getNextToken();
             if(token.getPadrao() == 61) { // simbolo =
                 return _const();
             }
             // erro falta do simbolo =
     	}
-    	GerandoTokens.voltaToken(); // falta de IDENTIFIER
-        return false;
+    	return false; // erro funcao Identifier()
     }
     public static boolean type_declaration_part(){
     	Token token = GerandoTokens.getNextToken();
@@ -124,32 +121,27 @@ public class Producoes {
     				}
     				return true;
     			}
-                        // falta do simbolo ;
+                // falta do simbolo ;
     		}
-                // falta de type_declaration()
+            // falta de type_declaration()
     	}
     	GerandoTokens.voltaToken(); // falta de palavra TYPE
         return false;
     }
     public static boolean type_declaration(){
-    	Token token = GerandoTokens.getNextToken();
-    	if(token.getPadrao() == 42) { // padrao IDENTIFIER
-    		token = GerandoTokens.getNextToken();
+    	if(identifier()) {
+    		Token token = GerandoTokens.getNextToken();
     		if(token.getPadrao() == 61) { // simbolo =
     			return type();
     		}
-                // erro falta de =
+    		// erro falta de =
     	}
-    	GerandoTokens.voltaToken();// erro falta de IDENTIFIER
-    	return false;
+    	return false; // erro funcao Identifier() 
     }
     public static boolean type(){
     	Token token = GerandoTokens.getNextToken();
     	if(token.getPadrao() == 71) { // simbolo ^
-    		token = GerandoTokens.getNextToken();
-    		if(token.getPadrao() == 42) // padrao IDENTIFIER
-    			return true;
-                // erro falta de IDENTIFIER
+    		return identifier();
     	} else if(token.getPadrao() == 2){ // palavra reservada ARRAY
     		token = GerandoTokens.getNextToken();
     		if(token.getPadrao() == 57) { // simbolo [
@@ -157,7 +149,7 @@ public class Producoes {
     				token = GerandoTokens.getNextToken();
     				while(token.getPadrao() == 56) { // simbolo ,
     					if(!simple_type())
-    						return false; // erro falta de simple type;
+    						return false; // erro funcao simpletype();
     					token = GerandoTokens.getNextToken();
     				}
     				if(token.getPadrao() == 58) { // simbolo ]
@@ -179,7 +171,7 @@ public class Producoes {
     				return true;
                 // erro falta de END
     		}
-            // erro, falta de FIELD_LIST()
+            // erro, funcao FIELD_LIST()
     	} else {
     		GerandoTokens.voltaToken();
     		return simple_type();
@@ -189,17 +181,12 @@ public class Producoes {
     }
     public static boolean simple_type(){
     	Token token = GerandoTokens.getNextToken();
-    	if(token.getPadrao() == 42) { // padrao IDENTIFIER
-    		return true;
-    	} else if(token.getPadrao() == 59) { // simbolo (
-    		token = GerandoTokens.getNextToken();
-    		if(token.getPadrao() == 42) { // padrao IDENTIFIER
+    	if(token.getPadrao() == 59) { // simbolo (
+    		if(identifier()) {
     			token = GerandoTokens.getNextToken();
     			while(token.getPadrao() == 56) { // simbolo ,
-    				token = GerandoTokens.getNextToken();
-    				if(token.getPadrao() != 42) // padrao IDENTIFIER
-    					return false; // ERRO falta de IDENTIFIER
-    				
+    				if(!identifier())
+    					return false; // ERRO falta funcao IDENTIFIER
     				token = GerandoTokens.getNextToken();
     			}
     			if(token.getPadrao() == 60) { // simbolo )
@@ -207,7 +194,7 @@ public class Producoes {
     			}
     			// erro falta do simbolo )
     		}
-    		// erro falta de IDENTIFIER
+    		// erro falta funcao IDENTIFIER
     	} else {
     		GerandoTokens.voltaToken();
     		if(_const()) {
@@ -216,7 +203,8 @@ public class Producoes {
     				return _const();
     			}
     			// erro falta de ..
-    		}
+    		} else 
+	    		return identifier();
     		// erro falta de _const()
     	}
     	GerandoTokens.voltaToken(); // não chega aqui
@@ -230,10 +218,12 @@ public class Producoes {
     	if(token.getPadrao() == 70 || token.getPadrao() == 68) { // simbolo + ou -
     		token = GerandoTokens.getNextToken();
     	}
-    	if (token.getPadrao() == 41 || token.getPadrao() == 42) // padrao NUMBER ou IDENTIFIER
+    	if (token.getPadrao() == 41) // padrao NUMBER
     		return true;
-    	
-    	return false; // não encontrado
+    	else {
+    		GerandoTokens.voltaToken();
+    		return identifier();
+    	}
     }
     public static boolean field_list(){
     	if(identifier_list()) {
@@ -247,7 +237,7 @@ public class Producoes {
     				GerandoTokens.voltaToken();
     				return true;
     			}
-    			// erro falta de type
+    			// erro funcao type()
     		}
     		// erro falta de :
     	} else {
@@ -270,7 +260,7 @@ public class Producoes {
     			}
     			// erro falta do simbolo ;
     		}
-    		// erro var_declaration()
+    		// erro funcao var_declaration()
     	}
     	GerandoTokens.voltaToken(); // falta da palavra VAR
         return false;
@@ -283,24 +273,21 @@ public class Producoes {
     		}
     		GerandoTokens.voltaToken(); // erro falta do simbolo :
     	}
-    	return false; // erro falta de identifier_list()
+    	return false; // erro funcao identifier_list()
     }
     public static boolean identifier_list(){
-    	Token token = GerandoTokens.getNextToken();
-    	if(token.getPadrao() == 42) { // padrao IDENTIFIER
-    		token = GerandoTokens.getNextToken();
+    	if(identifier()) {
+    		Token token = GerandoTokens.getNextToken();
     		while(token.getPadrao() == 56) { // simbolo ,
-    			token = GerandoTokens.getNextToken();
-    			if(token.getPadrao() != 42) // padrao IDENTIFIER 
-    				return false; // erro falta de um IDENTIFIER
+    			if(identifier())  
+    				return false; // erro falta funcao IDENTIFIER
     			token = GerandoTokens.getNextToken();
     		}
     		GerandoTokens.voltaToken();
     		return true;
     	}
-    	// erro falta de padrao IDENTIFIER
-    	GerandoTokens.voltaToken();
-        return false;
+    	// erro falta funcao IDENTIFIER
+    	return false;
     }
     public static boolean subroutine_declaration_part(){
     	if(procedure_declaration() || function_declaration()) {
@@ -315,15 +302,15 @@ public class Producoes {
     public static boolean procedure_declaration(){
     	Token token = GerandoTokens.getNextToken();
     	if(token.getPadrao() == 25) { // palavra Reservada PROCEDURE
-    		token = GerandoTokens.getNextToken();
-    		if(token.getPadrao() == 42) { // padrao IDENTIFIER
+    		if(identifier()) {
     			formal_parameters();
     			token = GerandoTokens.getNextToken();
     			if(token.getPadrao() == 55) { // simbolo ;
     				return block();
     			}
+    			// erro falta simbolo ;
     		}
-    		// erro falta padrao IDENTIFIER
+    		// erro falta funcao IDENTIFIER
     	}
     	GerandoTokens.voltaToken(); // erro falta palavra PROCEDURE
     	return false;
@@ -331,24 +318,22 @@ public class Producoes {
     public static boolean function_declaration(){
     	Token token = GerandoTokens.getNextToken();
     	if(token.getPadrao() == 14) {// palavra Reservada FUNCTION
-    		token = GerandoTokens.getNextToken();
-    		if(token.getPadrao() == 42) { // padrao IDENTIFIER
+    		if(identifier()) {
     			formal_parameters();
     			token = GerandoTokens.getNextToken();
     			if(token.getPadrao() == 54) { // simbolo :
-    				token = GerandoTokens.getNextToken();
-    				if(token.getPadrao() == 42) { // padrao IDENTIFIER
+    				if(identifier()) {
     					token = GerandoTokens.getNextToken();
     					if(token.getPadrao() == 55) { // simbolo ;
     						return block();
     					}
     					// erro, falta do simbolo ;
     				}
-    				// erro falta do padrao IDENTIFIER
+    				// erro falta funcao IDENTIFIER
     			}
-    			// erro do simbolo ;
+    			// erro do simbolo :
     		}
-    		// erro, falta padrao IDENTIFIER
+    		// erro, falta funcao IDENTIFIER
     	}
     	GerandoTokens.voltaToken(); // erro, falta da palavra FUNCTION
     	return false;
@@ -363,8 +348,10 @@ public class Producoes {
     					return false; // erro, function param_section()
     				token = GerandoTokens.getNextToken();
     			}
-    			GerandoTokens.voltaToken();
-    			return true;
+    			if(token.getPadrao() == 60) {
+    				return true;
+    			}
+    			// erro falta simbolo )
     		}
     		// erro, funcao param_section()
     	}
@@ -377,30 +364,21 @@ public class Producoes {
     		if(identifier_list()) {
     			token = GerandoTokens.getNextToken();
 				if(token.getPadrao() == 54) { // simbolo :
-					token = GerandoTokens.getNextToken();
-					if(token.getPadrao() == 42) { // simbolo IDENTIFIER
-						return true;
-					}
-					// erro falta padrao IDENTIFIER
+					return identifier();
 				}
-				// erro falta de simbolo ;
+				// erro falta de simbolo :
     		}
     		// erro funcao identifier_list()
     		return false;
     	} else if(token.getPadrao() == 25) { // palavra Reservada PROCEDURE
     		return identifier_list();
-    	} else if(token.getPadrao() == 36) { // palavra Reservada VAR
-    		token = GerandoTokens.getNextToken();
+    	} else if(token.getPadrao() != 36) { // palavra Reservada VAR
+    		GerandoTokens.voltaToken();
     	}
-    	GerandoTokens.voltaToken();
     	if(identifier_list()) {
     		token = GerandoTokens.getNextToken();
     		if(token.getPadrao() == 54) { // simbolo :
-    			token = GerandoTokens.getNextToken();
-    			if(token.getPadrao() == 42) { // simbolo IDENTIFIER
-    				return true;
-    			}
-    			// erro falta de Identifier
+    			return identifier();
     		}
     		// erro falta de :
     	}
@@ -443,14 +421,7 @@ public class Producoes {
     public static boolean statement(){
     	Token token = GerandoTokens.getNextToken();
     	GerandoTokens.voltaToken();
-    	if(token.getPadrao() == 42) { // padrao IDENTIFIER
-    		if(assing_statement())
-    			return true;
-    		else if(procedure_call())
-    			return true;
-    		// erro funcao assing_statement() ou procedure_call()
-    		return false;
-    	} else if(token.getPadrao() == 16) // palavra Reservada IF
+    	if(token.getPadrao() == 16) // palavra Reservada IF
     		return if_statement();
     	else if(token.getPadrao() == 37) // palavra Reservada WHILE
     		return while_statement();
@@ -464,28 +435,29 @@ public class Producoes {
     		return goto_statement();
     	else if(token.getPadrao() == 3) // pakavra Rservada BEGIN
     		return compound_statement();
-    	else
-    		return true;
+    	else {
+    		if(assing_statement())
+    			return true;
+    		else if(procedure_call())
+    			return true;
+    	}
+    	return true;
     }
     public static boolean assing_statement(){
-    	Token token = GerandoTokens.getNextToken();
-    	if(token.getPadrao() == 42) { // padrao IDENTIFIER
-    		if(infipo()) {
-    			token = GerandoTokens.getNextToken();
-    			if(token.getPadrao() == 51) { // simbolo :=
-    				return expr();
-    			}
-    			// erro falta simbolo :=
+    	if(identifier()) { // padrao IDENTIFIER
+    		infipo();
+    		Token token = GerandoTokens.getNextToken();
+    		if(token.getPadrao() == 51) { // simbolo :=
+    			return expr();
     		}
-    		// erro info()
+    		// erro falta simbolo :=
     	}
     	GerandoTokens.voltaToken(); // erro, falta padrao IDENTIFIER
     	return false;
     }
     public static boolean procedure_call(){
-    	Token token = GerandoTokens.getNextToken();
-    	if(token.getPadrao() == 42) { // padrao IDENTIFIER
-    		token = GerandoTokens.getNextToken();
+    	if(identifier()) { // padrao IDENTIFIER
+    		Token token = GerandoTokens.getNextToken();
     		if(token.getPadrao() == 59) { // simbolo (
     			if(expr_list()) {
     				token = GerandoTokens.getNextToken();
@@ -499,7 +471,7 @@ public class Producoes {
     			return true;
     		}
     	}
-    	return false; // erro, falta padrao IDENTIFIER
+    	return false; // erro, falta funcao IDENTIFIER
     }
     public static boolean if_statement(){
     	Token token = GerandoTokens.getNextToken();
@@ -563,8 +535,7 @@ public class Producoes {
     public static boolean for_statement(){
     	Token token = GerandoTokens.getNextToken();
     	if(token.getPadrao() == 13) { // palavra Reservada FOR
-    		token = GerandoTokens.getNextToken();
-    		if(token.getPadrao() == 42) { // padrao IDENTIFIER
+    		if(identifier()) {
     			if(infipo()) {
     				token = GerandoTokens.getNextToken();
     				if(token.getPadrao() == 51) { // simbolo :=
@@ -588,7 +559,7 @@ public class Producoes {
     			}
     			// erro funcao infipo()
     		}
-    		// erro falta padrao IDENTIFIER
+    		// erro falta funcao IDENTIFIER
     	}
     	GerandoTokens.voltaToken(); // erro falta palavra FOR
     	return false;
@@ -596,14 +567,12 @@ public class Producoes {
     public static boolean with_statement(){
     	Token token = GerandoTokens.getNextToken();
     	if(token.getPadrao() == 38) { // palavra Reservada WITH
-    		token = GerandoTokens.getNextToken();
-    		if(token.getPadrao() == 42) { // padrao IDENTIFIER
+    		if(identifier()) {
     			if(infipo()) {
     				token = GerandoTokens.getNextToken();
     				while(token.getPadrao() == 56) { // simbolo ,
-    					token = GerandoTokens.getNextToken();
-    					if(token.getPadrao() != 42) // padrao IDENTIFIER
-    						return false; // erro falta padrao IDENTIFIER
+    					if(!identifier())
+    						return false; // erro falta funcao IDENTIFIER
     					else if(!infipo())
     						return false; // erro funcao infipo()
     					token = GerandoTokens.getNextToken();
@@ -615,7 +584,7 @@ public class Producoes {
     			}
     			// erro funcao infipo()
     		}
-    		// erro falta padrao IDENTIFIER
+    		// erro falta funcao IDENTIFIER
     	}
     	GerandoTokens.voltaToken(); // erro falta palavra WITH
     	return false;
@@ -650,13 +619,18 @@ public class Producoes {
     }
     public static boolean _case(){
     	Token token = GerandoTokens.getNextToken();
-    	if(token.getPadrao() == 41 || token.getPadrao() == 42) { // padrao NUMBER ou IDENTIFIER
-    		token = GerandoTokens.getNextToken();
-    		if(token.getPadrao() == 54){ // simbolo :
-    			return statement();
+    	if(token.getPadrao() == 41) {
+    	}else {
+    		GerandoTokens.voltaToken();
+    		if(!identifier()) {
+    			return false; // falta do padrao NUMBER ou funcao IDENTIFIER
     		}
-    		// erro falata simbolo :
     	}
+    	token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 54){ // simbolo :
+    		return statement();
+    	}
+    	// erro falata simbolo :
     	GerandoTokens.voltaToken(); // erro falta padrao NUMBER ou IDENTIFIER
     	return false;
     }
@@ -689,8 +663,7 @@ public class Producoes {
     		}
     		// erro funcao expr()
     	} else if(token.getPadrao() == 53) { // simbolo .
-    		token = GerandoTokens.getNextToken();
-    		if(token.getPadrao() == 42) { // padrao IDENTIFIER
+    		if(identifier()) {
     			return infipo();
     		}
     		// erro falta padrao IDENTIFIER
@@ -803,22 +776,7 @@ public class Producoes {
     }
     public static boolean factor(){
     	Token token = GerandoTokens.getNextToken();
-    	if(token.getPadrao() == 42) { // padrao IDENTIFIER
-    		token = GerandoTokens.getNextToken();
-    		if(token.getPadrao() == 59) { // simbolo (
-    			if(expr_list()) {
-    				token = GerandoTokens.getNextToken();
-    				if(token.getPadrao() == 60) // simbolo )
-    					return true;
-    				// erro falta so simbolo )
-    			}
-    			// erro funcao expr_list()
-    			return false;
-    		}
-    		if(infipo())
-    			return true;
-    		// erro funcao infipo()
-    	} else if(token.getPadrao() == 41) // padrao NUMBER
+    	if(token.getPadrao() == 41) // padrao NUMBER
     		return true;
     	else if(token.getPadrao() == 44) // padrao STRING
     		return true;
@@ -832,10 +790,50 @@ public class Producoes {
     		// erro expr()
     	} else if(token.getPadrao() == 21) { // palavra Reservada NOT
     		return factor();
+    	} else {
+    		GerandoTokens.voltaToken();
+    		if(identifier()) {
+        		token = GerandoTokens.getNextToken();
+        		if(token.getPadrao() == 59) { // simbolo (
+        			if(expr_list()) {
+        				token = GerandoTokens.getNextToken();
+        				if(token.getPadrao() == 60) // simbolo )
+        					return true;
+        				// erro falta so simbolo )
+        			}
+        			// erro funcao expr_list()
+        			return false;
+        		}
+        		if(infipo())
+        			return true;
+        		// erro funcao infipo()
+    		}
+    		// erro falta de identifier
     	}
     	GerandoTokens.voltaToken();
     	return false;
     }
+    public static boolean identifier() {
+    	Token token = GerandoTokens.getNextToken();
+    	if(token.getPadrao() == 42) // padrao IDENTIFIER
+    		return true;
+    	else if(token.getPadrao() == 4) // palavra Reservada BOOLEAN 
+    		return true;
+    	else if(token.getPadrao() == 6) // palavra Reservada CHAR
+    		return true;
+    	else if(token.getPadrao() == 17) // palavra Reservada INTEGER
+    		return true;
+    	else if(token.getPadrao() == 20) // palavra Reservada NIL
+    		return true;
+    	else if(token.getPadrao() == 24) // palavra Reservada POINTER
+    		return true;
+    	else if(token.getPadrao() == 27) // palavra Reservada REAL
+    		return true;
+    	else if(token.getPadrao() == 31) // palavra Reservada STRING
+    		return true;
+    	else 
+    		GerandoTokens.voltaToken();
+    	return false;
+    }
     
 }
-// TESTE
