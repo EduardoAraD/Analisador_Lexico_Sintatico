@@ -9,12 +9,17 @@ TYPE id6 = ^id;
      id8 = ARRAY[id7] OF SET OF (id6);
      id9 = 'string' .. +45;
      id10 = RECORD id9, id10 : INTEGER END;
-
 VAR id11 : INTEGER;
     id12 : STRING;
     id13 : id11;
     id14,id15,id16 : BOOLEAN;
-    id16: ARRAY[id8] OF SET OF (16);
- 
+    id16 : ARRAY[id8] OF SET OF (NIL);
+
+FUNCTION proID( VAR if: BOOLEAN; ID : INTEGER) : funcID;
+	VAR id : INTEGER;
+	BEGIN
+	
+	END;
+
 BEGIN
 END.

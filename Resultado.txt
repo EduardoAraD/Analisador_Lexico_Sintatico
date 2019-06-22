@@ -101,57 +101,88 @@
 < 11, INTEGER, token( INTEGER )>
 < 11, END, token( END )>
 < 11, ;, token( RELOP,SEMICOLON )>
-< 13, 
-
+< 12, 
 , token( WS )>
-< 13, VAR, token( VAR )>
-< 13, id11, token( id 11 )>
+< 12, VAR, token( VAR )>
+< 12, id11, token( id 11 )>
+< 12, :, token( RELOP,COLON )>
+< 12, INTEGER, token( INTEGER )>
+< 12, ;, token( RELOP,SEMICOLON )>
+< 13, 
+, token( WS )>
+< 13, id12, token( id 12 )>
 < 13, :, token( RELOP,COLON )>
-< 13, INTEGER, token( INTEGER )>
+< 13, STRING, token( STRING )>
 < 13, ;, token( RELOP,SEMICOLON )>
 < 14, 
 , token( WS )>
-< 14, id12, token( id 12 )>
+< 14, id13, token( id 13 )>
 < 14, :, token( RELOP,COLON )>
-< 14, STRING, token( STRING )>
+< 14, id11, token( id 11 )>
 < 14, ;, token( RELOP,SEMICOLON )>
 < 15, 
 , token( WS )>
-< 15, id13, token( id 13 )>
+< 15, id14, token( id 14 )>
+< 15, ,, token( RELOP,COMMA )>
+< 15, id15, token( id 15 )>
+< 15, ,, token( RELOP,COMMA )>
+< 15, id16, token( id 16 )>
 < 15, :, token( RELOP,COLON )>
-< 15, id11, token( id 11 )>
+< 15, BOOLEAN, token( BOOLEAN )>
 < 15, ;, token( RELOP,SEMICOLON )>
 < 16, 
 , token( WS )>
-< 16, id14, token( id 14 )>
-< 16, ,, token( RELOP,COMMA )>
-< 16, id15, token( id 15 )>
-< 16, ,, token( RELOP,COMMA )>
 < 16, id16, token( id 16 )>
 < 16, :, token( RELOP,COLON )>
-< 16, BOOLEAN, token( BOOLEAN )>
+< 16, ARRAY, token( ARRAY )>
+< 16, [, token( RELOP,LB )>
+< 16, id8, token( id 8 )>
+< 16, ], token( RELOP,RB )>
+< 16, OF, token( OF )>
+< 16, SET, token( SET )>
+< 16, OF, token( OF )>
+< 16, (, token( RELOP,LP )>
+< 16, NIL, token( NIL )>
+< 16, ), token( RELOP,RP )>
 < 16, ;, token( RELOP,SEMICOLON )>
-< 17, 
-, token( WS )>
-< 17, id16, token( id 16 )>
-< 17, :, token( RELOP,COLON )>
-< 17, ARRAY, token( ARRAY )>
-< 17, [, token( RELOP,LB )>
-< 17, id8, token( id 8 )>
-< 17, ], token( RELOP,RB )>
-< 17, OF, token( OF )>
-< 17, SET, token( SET )>
-< 17, OF, token( OF )>
-< 17, (, token( RELOP,LP )>
-< 17, 16, token( NUMBER )>
-< 17, ), token( RELOP,RP )>
-< 17, ;, token( RELOP,SEMICOLON )>
 < 18, 
+
 , token( WS )>
+< 18, FUNCTION, token( FUNCTION )>
+< 18, proID, token( id 17 )>
+< 18, (, token( RELOP,LP )>
+< 18, VAR, token( VAR )>
+< 18, if, token( id 18 )>
+< 18, :, token( RELOP,COLON )>
+< 18, BOOLEAN, token( BOOLEAN )>
+< 18, ;, token( RELOP,SEMICOLON )>
+< 18, ID, token( id 19 )>
+< 18, :, token( RELOP,COLON )>
+< 18, INTEGER, token( INTEGER )>
+< 18, ), token( RELOP,RP )>
+< 18, :, token( RELOP,COLON )>
+< 18, funcID, token( id 20 )>
+< 18, ;, token( RELOP,SEMICOLON )>
 < 19, 
-, token( WS )>
-< 19, BEGIN, token( BEGIN )>
+	, token( WS )>
+< 19, VAR, token( VAR )>
+< 19, id, token( id 1 )>
+< 19, :, token( RELOP,COLON )>
+< 19, INTEGER, token( INTEGER )>
+< 19, ;, token( RELOP,SEMICOLON )>
 < 20, 
+	, token( WS )>
+< 20, BEGIN, token( BEGIN )>
+< 22, 
+	
+	, token( WS )>
+< 22, END, token( END )>
+< 22, ;, token( RELOP,SEMICOLON )>
+< 24, 
+
 , token( WS )>
-< 20, END, token( END )>
-< 20, ., token( RELOP,DOT )>
+< 24, BEGIN, token( BEGIN )>
+< 25, 
+, token( WS )>
+< 25, END, token( END )>
+< 25, ., token( RELOP,DOT )>

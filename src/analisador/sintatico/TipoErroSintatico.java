@@ -5,8 +5,10 @@ public enum TipoErroSintatico {
 	BEGIN(3,"Era esperado a palavra reservada 'BEGIN'"),
 	CONST(7,"Era esperado a palavra reservada 'CONST'"),
 	END(12,"Era esperado a palavra reservada 'END'"),
+	FUNCTION(14,"Era esperado a palavra reservada 'FUNCTION'"),
 	LABEL(18,"Era esperado a palavra reservada 'LABEL"),
 	OF(22,"Era esperado a palavra reservada 'OF'"),
+	PROCEDURE(25,"Era esperado a palavra 'PROCEDURE'"),
 	PROGRAM(26,"Era esperado a palavra reservada 'PROGRAM'"),
 	TYPE(34,"Era esperado a palavra reservada 'TYPE'"),
 	VAR(36,"Era esperado a palavra reservada 'VAR'"),
@@ -18,6 +20,7 @@ public enum TipoErroSintatico {
 	SEMI_COLON(55,"Era esperado o simbolo ';'"),
 	LB(57,"Era esperado o simbolo '['"),
 	RB(58,"Era esperado o simbolo ']'"),
+	LP(59,"Era esperado o simbolo '('"),
 	RP(60,"Era esperado o simbolo ')'"),
 	EQUAL(61,"Era esperado o simbolo '='");
 	
