@@ -100,7 +100,9 @@ public class GerandoTokens {
                 return getNextToken();
             return tok;
         }
-        return null;
+        Token tok = new Token();
+        tok.setPadrao(-1);
+        return tok;
     }
     // volta um token
     public static void voltaToken() {

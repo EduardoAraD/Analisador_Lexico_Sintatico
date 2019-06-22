@@ -1,109 +1,157 @@
 < 1, PROGRAM, token( PROGRAM )>
 < 1, PZIM, token( id 0 )>
+< 1, (, token( RELOP,LP )>
+< 1, id, token( id 1 )>
+< 1, ,, token( RELOP,COMMA )>
+< 1, INTEGER, token( INTEGER )>
+< 1, ), token( RELOP,RP )>
 < 1, ;, token( RELOP,SEMICOLON )>
-< 3, 
-
+< 2, 
 , token( WS )>
-< 3, VAR, token( VAR )>
-< 3, ano, token( id 1 )>
-< 3, :, token( RELOP,COLON )>
-< 3, INTEGER, token( INTEGER )>
+< 2, LABEL, token( LABEL )>
+< 2, 4, token( NUMBER )>
+< 2, ;, token( RELOP,SEMICOLON )>
+< 3, 
+, token( WS )>
+< 3, CONST, token( CONST )>
+< 3, id2, token( id 2 )>
+< 3, =, token( RELOP,EQUAL )>
+< 3, 'teste', token( STRING )>
 < 3, ;, token( RELOP,SEMICOLON )>
 < 4, 
 , token( WS )>
-< 4, anoatual, token( id 2 )>
-< 4, :, token( RELOP,COLON )>
-< 4, INTEGER, token( INTEGER )>
+< 4, id3, token( id 3 )>
+< 4, =, token( RELOP,EQUAL )>
+< 4, id2, token( id 2 )>
 < 4, ;, token( RELOP,SEMICOLON )>
 < 5, 
 , token( WS )>
-< 5, soma, token( id 3 )>
-< 5, :, token( RELOP,COLON )>
-< 5, INTEGER, token( INTEGER )>
+< 5, id4, token( id 4 )>
+< 5, =, token( RELOP,EQUAL )>
+< 5, +, token( RELOP,PLUS )>
+< 5, 4, token( NUMBER )>
 < 5, ;, token( RELOP,SEMICOLON )>
 < 6, 
 , token( WS )>
-< 6, BEGIN, token( BEGIN )>
+< 6, id5, token( id 5 )>
+< 6, =, token( RELOP,EQUAL )>
+< 6, -, token( RELOP,MINUS )>
+< 6, id4, token( id 4 )>
+< 6, ;, token( RELOP,SEMICOLON )>
 < 7, 
 , token( WS )>
-< 7, WRITELN, token( id 4 )>
-< 7, (, token( RELOP,LP )>
-< 7, 'O ano em que você nasceu', token( STRING )>
-< 7, ), token( RELOP,RP )>
+< 7, TYPE, token( TYPE )>
+< 7, id6, token( id 6 )>
+< 7, =, token( RELOP,EQUAL )>
+< 7, ^, token( RELOP,SIMB_POINTER )>
+< 7, id, token( id 1 )>
 < 7, ;, token( RELOP,SEMICOLON )>
 < 8, 
 , token( WS )>
-< 8, WHITELN, token( id 5 )>
+< 8, id7, token( id 7 )>
+< 8, =, token( RELOP,EQUAL )>
+< 8, ARRAY, token( ARRAY )>
+< 8, [, token( RELOP,LB )>
+< 8, id, token( id 1 )>
+< 8, ,, token( RELOP,COMMA )>
+< 8, id2, token( id 2 )>
+< 8, ,, token( RELOP,COMMA )>
+< 8, id3, token( id 3 )>
+< 8, ,, token( RELOP,COMMA )>
+< 8, id4, token( id 4 )>
+< 8, ,, token( RELOP,COMMA )>
+< 8, id5, token( id 5 )>
+< 8, ], token( RELOP,RB )>
+< 8, OF, token( OF )>
+< 8, INTEGER, token( INTEGER )>
 < 8, ;, token( RELOP,SEMICOLON )>
 < 9, 
 , token( WS )>
-< 9, WRITELN, token( id 4 )>
+< 9, id8, token( id 8 )>
+< 9, =, token( RELOP,EQUAL )>
+< 9, ARRAY, token( ARRAY )>
+< 9, [, token( RELOP,LB )>
+< 9, id7, token( id 7 )>
+< 9, ], token( RELOP,RB )>
+< 9, OF, token( OF )>
+< 9, SET, token( SET )>
+< 9, OF, token( OF )>
+< 9, (, token( RELOP,LP )>
+< 9, id6, token( id 6 )>
+< 9, ), token( RELOP,RP )>
 < 9, ;, token( RELOP,SEMICOLON )>
 < 10, 
 , token( WS )>
-< 10, WRITELN, token( id 4 )>
+< 10, id9, token( id 9 )>
+< 10, =, token( RELOP,EQUAL )>
+< 10, 'string', token( STRING )>
+< 10, .., token( RELOP,DOTDOT )>
+< 10, +, token( RELOP,PLUS )>
+< 10, 45, token( NUMBER )>
 < 10, ;, token( RELOP,SEMICOLON )>
 < 11, 
 , token( WS )>
-< 11, WRITELN, token( id 4 )>
-< 11, (, token( RELOP,LP )>
-< 11, 'Quantos anos você fez ou irá fazer no ano atual?', token( STRING )>
-< 11, ), token( RELOP,RP )>
+< 11, id10, token( id 10 )>
+< 11, =, token( RELOP,EQUAL )>
+< 11, RECORD, token( RECORD )>
+< 11, id9, token( id 9 )>
+< 11, ,, token( RELOP,COMMA )>
+< 11, id10, token( id 10 )>
+< 11, :, token( RELOP,COLON )>
+< 11, INTEGER, token( INTEGER )>
+< 11, END, token( END )>
 < 11, ;, token( RELOP,SEMICOLON )>
-< 12, 
-, token( WS )>
-< 12, READLN, token( id 6 )>
-< 12, (, token( RELOP,LP )>
-< 12, ano, token( id 1 )>
-< 12, ), token( RELOP,RP )>
-< 12, ;, token( RELOP,SEMICOLON )>
 < 13, 
+
 , token( WS )>
-< 13, WRITELN, token( id 4 )>
-< 13, (, token( RELOP,LP )>
-< 13, 'Em que ano você está?', token( STRING )>
-< 13, ), token( RELOP,RP )>
+< 13, VAR, token( VAR )>
+< 13, id11, token( id 11 )>
+< 13, :, token( RELOP,COLON )>
+< 13, INTEGER, token( INTEGER )>
 < 13, ;, token( RELOP,SEMICOLON )>
 < 14, 
 , token( WS )>
-< 14, READLN, token( id 6 )>
-< 14, (, token( RELOP,LP )>
-< 14, anoatual, token( id 2 )>
-< 14, ), token( RELOP,RP )>
+< 14, id12, token( id 12 )>
+< 14, :, token( RELOP,COLON )>
+< 14, STRING, token( STRING )>
 < 14, ;, token( RELOP,SEMICOLON )>
 < 15, 
 , token( WS )>
-< 15, soma, token( id 3 )>
-< 15, :=, token( RELOP,ASSING_OP )>
-< 15, anoatual, token( id 2 )>
-< 15, -, token( RELOP,MINUS )>
-< 15, ano, token( id 1 )>
+< 15, id13, token( id 13 )>
+< 15, :, token( RELOP,COLON )>
+< 15, id11, token( id 11 )>
 < 15, ;, token( RELOP,SEMICOLON )>
 < 16, 
 , token( WS )>
-< 16, WRITELN, token( id 4 )>
-< 16, (, token( RELOP,LP )>
-< 16, 'Você nasceu em', token( STRING )>
+< 16, id14, token( id 14 )>
 < 16, ,, token( RELOP,COMMA )>
-< 16, soma, token( id 3 )>
-< 16, ), token( RELOP,RP )>
+< 16, id15, token( id 15 )>
+< 16, ,, token( RELOP,COMMA )>
+< 16, id16, token( id 16 )>
+< 16, :, token( RELOP,COLON )>
+< 16, BOOLEAN, token( BOOLEAN )>
 < 16, ;, token( RELOP,SEMICOLON )>
 < 17, 
 , token( WS )>
-< 17, WRITELN, token( id 4 )>
+< 17, id16, token( id 16 )>
+< 17, :, token( RELOP,COLON )>
+< 17, ARRAY, token( ARRAY )>
+< 17, [, token( RELOP,LB )>
+< 17, id8, token( id 8 )>
+< 17, ], token( RELOP,RB )>
+< 17, OF, token( OF )>
+< 17, SET, token( SET )>
+< 17, OF, token( OF )>
+< 17, (, token( RELOP,LP )>
+< 17, 16, token( NUMBER )>
+< 17, ), token( RELOP,RP )>
 < 17, ;, token( RELOP,SEMICOLON )>
 < 18, 
 , token( WS )>
-< 18, WRITELN, token( id 4 )>
-< 18, ;, token( RELOP,SEMICOLON )>
 < 19, 
 , token( WS )>
-< 19, WRITELN, token( id 4 )>
-< 19, ;, token( RELOP,SEMICOLON )>
+< 19, BEGIN, token( BEGIN )>
 < 20, 
 , token( WS )>
-< 20, WRITELN, token( id 4 )>
-< 21, 
-, token( WS )>
-< 21, END, token( END )>
-< 21, ., token( RELOP,DOT )>
+< 20, END, token( END )>
+< 20, ., token( RELOP,DOT )>

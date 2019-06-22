@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import analisador.sintatico.Producoes;
+import analisador.sintatico.TipoErroSintatico;
+
 /**
  *
  * @author aluno
@@ -38,11 +41,12 @@ public class AnalisadorLexico {
             GerandoTokens.lerTokens(); // Funcao que imprime do console os tokens encontrados
             LeituraArquivo.GravacaodeResultado(); // Funcao que armazena o resultado no arquivo 
             if(!GerandoTokens.getErro()) {
-	            if(analisador.sintatico.Producoes.program()) {
-	            	System.out.print("\n\nPassou em tudo");
+            	TipoErroSintatico erro = Producoes.program();
+	            if(erro == TipoErroSintatico.CORRETO) {
+	            	System.out.print(TipoErroSintatico.getDescricao(erro, 0));
 	            } else {
-	            	System.out.print("\n\nErro!!\n");
-	            	GerandoTokens.getNextToken().imprimir();
+	            	System.out.print(TipoErroSintatico.getDescricao(erro,Producoes.linha));
+	            	
 	            }
             } else 
             	System.out.println("\n\nErro Léxico!");

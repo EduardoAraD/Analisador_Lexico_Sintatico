@@ -1,21 +1,20 @@
-PROGRAM PZIM;
+PROGRAM PZIM(id, INTEGER);
+LABEL 4;
+CONST id2 = 'teste';
+      id3 = id2;
+      id4 = +4;
+      id5 = -id4;
+TYPE id6 = ^id;
+     id7 = ARRAY[id,id2,id3,id4,id5] OF INTEGER;
+     id8 = ARRAY[id7] OF SET OF (id6);
+     id9 = 'string' .. +45;
+     id10 = RECORD id9, id10 : INTEGER END;
 
-VAR ano: INTEGER;
-    anoatual: INTEGER;
-    soma: INTEGER;
+VAR id11 : INTEGER;
+    id12 : STRING;
+    id13 : id11;
+    id14,id15,id16 : BOOLEAN;
+    id16: ARRAY[id8] OF SET OF (16);
+ 
 BEGIN
-   WRITELN ('O ano em que você nasceu');
-   WHITELN;
-   WRITELN;
-   WRITELN;
-   WRITELN ('Quantos anos você fez ou irá fazer no ano atual?');
-   READLN (ano);
-   WRITELN ('Em que ano você está?');
-   READLN (anoatual);
-   soma := anoatual - ano;
-   WRITELN ('Você nasceu em', soma );
-   WRITELN;
-   WRITELN;
-   WRITELN;
-   WRITELN
 END.

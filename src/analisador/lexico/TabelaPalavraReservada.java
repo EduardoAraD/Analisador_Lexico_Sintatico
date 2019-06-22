@@ -58,7 +58,7 @@ public class TabelaPalavraReservada {
         padrao.put(38,"WITH");
         padrao.put(39,"IN");
         
-        padrao.put(41,"NUM");
+        padrao.put(41,"NUMBER");
         padrao.put(42,"IDENTIFIER");
         padrao.put(43,"CHAR1");
         padrao.put(44,"STRING");
@@ -219,7 +219,7 @@ public class TabelaPalavraReservada {
                 } else if(tok == 'C'){
                     aux = palavra.substring(1);
                     if(aux.equals("ONST"))
-                        return 5;
+                        return 7;
                 } else if(tok == 'L'){
                     aux = palavra.substring(1);
                     if(aux.equals("ABEL"))
