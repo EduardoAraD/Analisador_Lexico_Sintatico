@@ -26,6 +26,12 @@ public class GerandoTokens {
     public static String getLinha() {
         return linha;
     }
+    public static int getNumero_token() {
+    	return numero_token;
+    }
+    public static void setNumero_token( int num_token) {
+    	numero_token = num_token;
+    }
     public static boolean getErro() {
     	return erroLexico;
     }
