@@ -184,5 +184,58 @@
 < 24, BEGIN, token( BEGIN )>
 < 25, 
 , token( WS )>
-< 25, END, token( END )>
+< 25, 3, token( NUMBER )>
+< 25, :, token( RELOP,COLON )>
+< 25, IF, token( IF )>
+< 25, id, token( id 1 )>
+< 25, (, token( RELOP,LP )>
+< 25, id, token( id 1 )>
+< 25, +, token( RELOP,PLUS )>
+< 25, 12, token( NUMBER )>
+< 25, ), token( RELOP,RP )>
+< 25, >=, token( RELOP,GE )>
+< 25, id, token( id 1 )>
+< 25, [, token( RELOP,LB )>
+< 25, +, token( RELOP,PLUS )>
+< 25, id, token( id 1 )>
+< 25, ,, token( RELOP,COMMA )>
+< 25, id, token( id 1 )>
 < 25, ., token( RELOP,DOT )>
+< 25, id, token( id 1 )>
+< 25, ], token( RELOP,RB )>
+< 25, ., token( RELOP,DOT )>
+< 25, id, token( id 1 )>
+< 25, THEN, token( THEN )>
+< 25, ;, token( RELOP,SEMICOLON )>
+< 26, 
+, token( WS )>
+< 26, 4, token( NUMBER )>
+< 26, :, token( RELOP,COLON )>
+< 26, WHILE, token( WHILE )>
+< 26, id, token( id 1 )>
+< 26, (, token( RELOP,LP )>
+< 26, id, token( id 1 )>
+< 26, +, token( RELOP,PLUS )>
+< 26, 12, token( NUMBER )>
+< 26, ), token( RELOP,RP )>
+< 26, >=, token( RELOP,GE )>
+< 26, id, token( id 1 )>
+< 26, [, token( RELOP,LB )>
+< 26, +, token( RELOP,PLUS )>
+< 26, id, token( id 1 )>
+< 26, ,, token( RELOP,COMMA )>
+< 26, id, token( id 1 )>
+< 26, ., token( RELOP,DOT )>
+< 26, id, token( id 1 )>
+< 26, ], token( RELOP,RB )>
+< 26, ., token( RELOP,DOT )>
+< 26, id, token( id 1 )>
+< 26, DO, token( DO )>
+< 26, IF, token( IF )>
+< 26, id, token( id 1 )>
+< 26, THEN, token( THEN )>
+< 28, 
+
+, token( WS )>
+< 28, END, token( END )>
+< 28, ., token( RELOP,DOT )>

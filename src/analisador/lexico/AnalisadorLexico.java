@@ -43,10 +43,9 @@ public class AnalisadorLexico {
             if(!GerandoTokens.getErro()) {
             	TipoErroSintatico erro = Producoes.program();
 	            if(erro == TipoErroSintatico.CORRETO) {
-	            	System.out.print(TipoErroSintatico.getDescricao(erro, 0));
+	            	System.out.print(TipoErroSintatico.getZeroErro());
 	            } else {
-	            	System.out.print(TipoErroSintatico.getDescricao(erro,Producoes.linha));
-	            	
+	            	System.out.print(TipoErroSintatico.getDescricao(erro,Producoes.linha,Producoes.nomeToken));
 	            }
             } else 
             	System.out.println("\n\nErro Léxico!");

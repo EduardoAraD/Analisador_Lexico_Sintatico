@@ -22,4 +22,7 @@ FUNCTION proID( VAR if: BOOLEAN; ID : INTEGER) : funcID;
 	END;
 
 BEGIN
+3: IF id(id+12) >= id[+id,id.id].id THEN;
+4: WHILE id(id+12) >= id[+id,id.id].id DO IF id THEN
+
 END.
