@@ -3,6 +3,7 @@ package analisador.sintatico;
 public enum TipoErroSintatico {
 	CORRETO(0,"O código está lexicamente e sintaticamente correto"),
 	BEGIN(3,"Era esperado a palavra reservada 'BEGIN'"),
+	CASE(5,"Era esperado a palavra reservasa 'CASE'"),
 	CONST(7,"Era esperado a palavra reservada 'CONST'"),
 	DO(9,"Era esperado a palavra reservada 'DO'"),
 	DOWNTO_TO(10,"Era esperado a palavra reservada 'DOWNTO' ou 'TO'"),
@@ -36,7 +37,8 @@ public enum TipoErroSintatico {
 	EQUAL(61,"Era esperado o simbolo '='"),
 	MULOP(80,"Era esperado operadores '*' ou '/' ou 'DIV' ou 'MOD' ou 'AND'"),
 	ADDOP(81,"Era esperado operadores '+' ou '-' ou 'OR'"),
-	RELOP(82,"Era esperado operadores '=' ou '<' ou '>' ou '<>' ou '<=' ou '>=' ou 'IN'");
+	RELOP(82,"Era esperado operadores '=' ou '<' ou '>' ou '<>' ou '<=' ou '>=' ou 'IN'"),
+	NUMBER_ID(83,"Era esperado um NUMBER ou IDENTIFICADOR");
 	
 	private final int codigo;
 	private final String descricao;

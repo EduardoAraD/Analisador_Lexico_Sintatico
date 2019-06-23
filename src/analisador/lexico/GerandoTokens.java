@@ -44,6 +44,8 @@ public class GerandoTokens {
         PadroesToken pt = new PadroesToken();
         while(!fimArquivo()){
             Token tok = pt.reconhecerPadrao();
+            if(tok.isErro())
+            	erroLexico = true;
             tokens.add(tok);
         }
     }

@@ -503,6 +503,8 @@ public class Producoes {
     		return with_statement();
     	else if(token.getPadrao() == 15) // palavra Reservada GOTO
     		return goto_statement();
+    	else if(token.getPadrao() == 5) // palavra Reservada CASE
+    		return case_statement();
     	else if(token.getPadrao() == 3) // pakavra Rservada BEGIN
     		return compound_statement();
     	else {
@@ -691,52 +693,53 @@ public class Producoes {
     	GerandoTokens.voltaToken(); // erro falta palavra WITH
     	return erro(token, TipoErroSintatico.WITH);
     }
-    /*public static boolean case_statement(){
-    	int num_token = GerandoTokens.getNumero_token();
+    public static TipoErroSintatico case_statement(){
     	Token token = GerandoTokens.getNextToken();
     	if(token.getPadrao() == 5) { // palavra Rservada CASE
-    		if(expr()) {
+    		TipoErroSintatico tes = expr();
+    		if(tes == TipoErroSintatico.CORRETO) {
     			token = GerandoTokens.getNextToken();
     			if(token.getPadrao() == 22) { // palavra Reservada OF
-    				if(_case()) {
+    				tes = _case();
+    				if(tes == TipoErroSintatico.CORRETO) {
     					token = GerandoTokens.getNextToken();
     					while(token.getPadrao() == 55) { // simbolo ;
-    						if(!_case()) {
-    							return false; // erro funcao case()
+    						tes = _case();
+    						if(tes != TipoErroSintatico.CORRETO) {
+    							return tes; // erro funcao case()
     						}
     						token = GerandoTokens.getNextToken();
     					}
-    					if(token.getPadrao() == 12) { // palavra Rservada END
-    						return true;
+    					if(token.getPadrao() == 12) { // palavra Reservada END
+    						return TipoErroSintatico.CORRETO;
     					}
-    					// erro falta palavra END
+    					return erro(token,TipoErroSintatico.END);// erro falta palavra END
     				}
-    				// erro funcao case()
+    				return tes;// erro funcao case()
     			}
-    			// erro falta palavra OF
+    			return erro(token, TipoErroSintatico.OF);// erro falta palavra OF
     		}
-    		// erro funcao expr()
+    		return tes;// erro funcao expr()
     	}
-    	GerandoTokens.setNumero_token(num_token); // erro falta palavra CASE
-    	return false;
+    	GerandoTokens.voltaToken(); // erro falta palavra CASE
+    	return erro(token, TipoErroSintatico.CASE);
     }
-    public static boolean _case(){
+    public static TipoErroSintatico _case(){
     	Token token = GerandoTokens.getNextToken();
-    	if(token.getPadrao() == 41) {
+    	if(token.getPadrao() == 41) { // padrao NUMBER
     	}else {
     		GerandoTokens.voltaToken();
-    		if(!identifier()) {
-    			return false; // falta do padrao NUMBER ou funcao IDENTIFIER
+    		TipoErroSintatico tes = identifier();
+    		if(tes != TipoErroSintatico.CORRETO) {
+    			return TipoErroSintatico.NUMBER_ID; // falta do padrao NUMBER ou funcao IDENTIFIER
     		}
     	}
     	token = GerandoTokens.getNextToken();
     	if(token.getPadrao() == 54){ // simbolo :
     		return statement();
     	}
-    	// erro falata simbolo :
-    	GerandoTokens.voltaToken(); // erro falta padrao NUMBER ou IDENTIFIER
-    	return false;
-    }*/
+    	return erro(token, TipoErroSintatico.COLON);// erro falata simbolo :
+    }
     public static TipoErroSintatico goto_statement(){
     	Token token = GerandoTokens.getNextToken();
     	if(token.getPadrao() == 15) { // palavra Reservada GOTO

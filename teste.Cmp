@@ -1,28 +1,19 @@
 PROGRAM PZIM(id, INTEGER);
-LABEL 4;
-CONST id2 = 'teste';
-      id3 = id2;
-      id4 = +4;
-      id5 = -id4;
-TYPE id6 = ^id;
-     id7 = ARRAY[id,id2,id3,id4,id5] OF INTEGER;
-     id8 = ARRAY[id7] OF SET OF (id6);
-     id9 = 'string' .. +45;
-     id10 = RECORD id9, id10 : INTEGER END;
-VAR id11 : INTEGER;
-    id12 : STRING;
-    id13 : id11;
-    id14,id15,id16 : BOOLEAN;
-    id16 : ARRAY[id8] OF SET OF (NIL);
 
-FUNCTION proID( VAR if: BOOLEAN; ID : INTEGER) : funcID;
-	VAR id : INTEGER;
-	BEGIN
-	
-	END;
-
+VAR ano: INTEGER;
+    anoatual: INTEGER;
+    soma: INTEGER;
 BEGIN
-3: IF id(id+12) >= id[+id,id.id].id THEN;
-4: WHILE id(id+12) >= id[+id,id.id].id DO IF id THEN
-
+    writeln(	'O ano em que você nasceu');
+    writeln;
+    writeln;
+    writeln;
+    writeln ('Quantos anos você fez ou irá fazer no ano atual?');
+    readln (anoatual);
+    soma := anoatual - ano;
+    writeln('Você nasceu em', soma);
+    writeln;
+    writeln;
+    writeln;
+    writeln
 END.
