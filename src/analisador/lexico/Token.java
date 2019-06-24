@@ -14,13 +14,18 @@ public class Token {
     private int padrao;
     private String nome_atributo;
     private boolean erro;
-
-    
+    private boolean criado;
+    private boolean utilizado;
+    private int tipoID;
+        
     public Token() {
         numero_linha = 0;
         padrao = 0;
         nome_atributo = "";
+        tipoID = -1;
         erro = false;
+        criado = false;
+        utilizado = false;
     }
 
     public int getNumero_linha() {
@@ -55,25 +60,60 @@ public class Token {
         this.erro = erro;
     }
     
+    public boolean isCriado() {
+		return criado;
+	}
+
+	public void setCriado(boolean criado) {
+		this.criado = criado;
+	}
+
+	public boolean isUtilizado() {
+		return utilizado;
+	}
+
+	public void setUtilizado(boolean utilizado) {
+		this.utilizado = utilizado;
+	}
+
+	public int getTipoID() {
+		return tipoID;
+	}
+
+	public void setTipoID(int tipoID) {
+		this.tipoID = tipoID;
+	}
+    
     public void imprimir(){ // imprime os atributos do token
-        TabelaPalavraReservada ts = new TabelaPalavraReservada();
+        //TabelaPalavraReservada ts = new TabelaPalavraReservada();
         if(this.erro){ // imprime os Token com erros
             if(padrao == 45){ // resolvendo a duplicidade do erro do Comment
                 if(this.nome_atributo.charAt(0) == '{')
                     padrao = 49;
             }    
-            System.out.println("Erro na linha: "+numero_linha+", no padrao: "+ts.padrao.get(padrao));
+            System.out.println("Erro na linha: "+numero_linha+", no padrao: "+TabelaPalavraReservada.padrao.get(padrao));
             System.out.println(TiposErro.getDescricao(TiposErro.getTiposErro(padrao))+" na linha "+numero_linha);
         } else {
             if(padrao == 42) // padrao IDENTIFIER
                 System.out.println("< "+numero_linha+", "+nome_atributo+", token( id "+TabelaSimbolos.getIdToken(this)+" )>");
             else if(padrao > 50) // padrao OPERADOR
-                System.out.println("< "+numero_linha+", "+nome_atributo+", token( RELOP,"+ts.padrao.get(padrao)+" )>");
+                System.out.println("< "+numero_linha+", "+nome_atributo+", token( RELOP,"+TabelaPalavraReservada.padrao.get(padrao)+" )>");
             else if(padrao >= 73) // padrao DELIM
-                System.out.println("< "+numero_linha+", token( "+ts.padrao.get(padrao)+" )>");
+                System.out.println("< "+numero_linha+", token( "+TabelaPalavraReservada.padrao.get(padrao)+" )>");
             else // PALAVRAS RESERVADAS
-                System.out.println("< "+numero_linha+", "+nome_atributo+", token( "+ts.padrao.get(padrao)+" )>");
+                System.out.println("< "+numero_linha+", "+nome_atributo+", token( "+TabelaPalavraReservada.padrao.get(padrao)+" )>");
         }
+    }
+    
+    public String imprimirTokenID() {
+    	//TabelaPalavraReservada ts = new TabelaPalavraReservada();
+    	String dadosToken = "< "+numero_linha+", "+nome_atributo+", token( id "+TabelaSimbolos.getIdToken(this)+" ),";
+    	dadosToken += " Tipo: "+TabelaPalavraReservada.padrao.get(tipoID)+", ";
+    	if(criado) dadosToken += "Criado: SIM, ";
+    	else dadosToken += "Criado: NÂO, ";
+    	if(utilizado) dadosToken += "Utilizado: SIM >";
+    	else dadosToken += "Utilizado: NÃO >";
+    	return dadosToken;
     }
     
 }

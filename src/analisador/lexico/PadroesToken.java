@@ -345,8 +345,8 @@ public class PadroesToken {
             GerandoTokens.voltaCaracter();
             token = identifier(token);
             token.setNumero_linha(GerandoTokens.getNumero_linha());
-            TabelaPalavraReservada pr = new TabelaPalavraReservada();
-            int numPalavra = pr.palavraReservada(token.getNome_atributo()); // verifica se palavra é reservada
+            //TabelaPalavraReservada pr = new TabelaPalavraReservada();
+            int numPalavra = TabelaPalavraReservada.palavraReservada(token.getNome_atributo()); // verifica se palavra é reservada
             if(numPalavra == 0){ // IDENTIFIER
                 token.setPadrao(42);
                 TabelaSimbolos.addToken(token);
@@ -374,13 +374,13 @@ public class PadroesToken {
                 }
             }
             token = operador(token);
-            TabelaPalavraReservada pr = new TabelaPalavraReservada();
-            int numPalavra = pr.operador(token.getNome_atributo()); // verifica se o operador é reservado
+            //TabelaPalavraReservada pr = new TabelaPalavraReservada();
+            int numPalavra = TabelaPalavraReservada.operador(token.getNome_atributo()); // verifica se o operador é reservado
             if(numPalavra == 0){ // verifica se o operador foi encontrado
                 String aux = token.getNome_atributo();
                 if(aux.length() == 2){ // voltar uma letra e verificar se é operador
                     aux = aux.charAt(0)+"";
-                    numPalavra = pr.operador(aux);
+                    numPalavra = TabelaPalavraReservada.operador(aux);
                     GerandoTokens.voltaCaracter();
                     token.setNome_atributo(aux);
                     if(numPalavra == 0){

@@ -13,7 +13,7 @@ import java.util.Map;
  * @author aluno
  */
 public class TabelaPalavraReservada {
-    public Map<Integer,String> padrao = new HashMap<>();
+    public static Map<Integer,String> padrao = new HashMap<>();
 
     public TabelaPalavraReservada() { // atrubui os id para cada palavra reservada
         padrao.put(-1,"DESCONHECIDO");
@@ -96,7 +96,7 @@ public class TabelaPalavraReservada {
         
     }
     
-    public int palavraReservada(String palavra){ // procura a palavra reservada a partir do tamanho
+    public static int palavraReservada(String palavra){ // procura a palavra reservada a partir do tamanho
         int tamanho = palavra.length();
         char tok = palavra.charAt(0);
         String aux;
@@ -294,7 +294,7 @@ public class TabelaPalavraReservada {
         }
     }
     
-    public int operador(String palavra){ // procura o operador reservado pelo tamanho
+    public static int operador(String palavra){ // procura o operador reservado pelo tamanho
         int tamanho = palavra.length();
         if(tamanho == 1){
             char caracter = palavra.charAt(0);

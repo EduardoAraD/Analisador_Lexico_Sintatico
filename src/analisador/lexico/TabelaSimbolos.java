@@ -12,8 +12,7 @@ import java.util.ArrayList;
  * @author Eduardo
  */
 public class TabelaSimbolos {
-    public static ArrayList<Token> linhasTabela = new ArrayList();
-    
+    private static ArrayList<Token> linhasTabela = new ArrayList<Token>();
     
     public static void addToken(Token tok){
         for(Token token: linhasTabela){
@@ -32,6 +31,9 @@ public class TabelaSimbolos {
             id++;
         }
         return -1;
+    }
+    public static ArrayList<Token> getTokens(){
+    	return linhasTabela;
     }
     
 }

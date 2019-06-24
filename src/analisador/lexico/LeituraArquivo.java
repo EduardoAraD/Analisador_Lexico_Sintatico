@@ -58,7 +58,7 @@ public class LeituraArquivo {
             
             // pegar token 
             ArrayList<Token> tokens = GerandoTokens.getTokens();
-            TabelaPalavraReservada ts = new TabelaPalavraReservada();
+            //TabelaPalavraReservada ts = new TabelaPalavraReservada();
             
             for(Token token : tokens){
                 if(token.isErro()){ // caso o token esteja com erro
@@ -66,17 +66,17 @@ public class LeituraArquivo {
                         if(token.getNome_atributo().charAt(0) == '{')
                             token.setPadrao(49);
                     }
-                    gravarArq.println("Erro na linha: "+token.getNumero_linha()+", no padrao: "+ts.padrao.get(token.getPadrao()));
+                    gravarArq.println("Erro na linha: "+token.getNumero_linha()+", no padrao: "+TabelaPalavraReservada.padrao.get(token.getPadrao()));
                     gravarArq.println(TiposErro.getDescricao(TiposErro.getTiposErro(token.getPadrao()))+" na linha "+token.getNumero_linha());
                 } else {
                     if(token.getPadrao() == 42) // atribuindo para os id para os caracter 'IDENTIFIER' 
                         gravarArq.println("< "+token.getNumero_linha()+", "+token.getNome_atributo()+", token( id "+TabelaSimbolos.getIdToken(token)+" )>");
                     else if(token.getPadrao() > 50) // atribuindo para as palavras reservadas de sinais
-                        gravarArq.println("< "+token.getNumero_linha()+", "+token.getNome_atributo()+", token( RELOP,"+ts.padrao.get(token.getPadrao())+" )>");
+                        gravarArq.println("< "+token.getNumero_linha()+", "+token.getNome_atributo()+", token( RELOP,"+TabelaPalavraReservada.padrao.get(token.getPadrao())+" )>");
                     else if(token.getPadrao() >= 73) // atrubui para o padrao de 'WS'
-                        gravarArq.println("< "+token.getNumero_linha()+", token( "+ts.padrao.get(token.getPadrao())+" )>");
+                        gravarArq.println("< "+token.getNumero_linha()+", token( "+TabelaPalavraReservada.padrao.get(token.getPadrao())+" )>");
                     else // para os restantes token
-                        gravarArq.println("< "+token.getNumero_linha()+", "+token.getNome_atributo()+", token( "+ts.padrao.get(token.getPadrao())+" )>");
+                        gravarArq.println("< "+token.getNumero_linha()+", "+token.getNome_atributo()+", token( "+TabelaPalavraReservada.padrao.get(token.getPadrao())+" )>");
                 }
             }
 

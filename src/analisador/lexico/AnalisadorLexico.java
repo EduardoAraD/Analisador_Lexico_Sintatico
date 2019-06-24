@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import analisador.sintatico.Producoes;
 import analisador.sintatico.TipoErroSintatico;
@@ -24,6 +25,7 @@ public class AnalisadorLexico {
      */
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
+    	new TabelaPalavraReservada();
         String arquivo = "";
         
         // pegar o nome do arquivo
@@ -43,9 +45,13 @@ public class AnalisadorLexico {
             if(!GerandoTokens.getErro()) {
             	TipoErroSintatico erro = Producoes.program();
 	            if(erro == TipoErroSintatico.CORRETO) {
-	            	System.out.print(TipoErroSintatico.getZeroErro());
+	            	System.out.println("\n"+TipoErroSintatico.getZeroErro());
+	            	ArrayList<Token> tokensID = TabelaSimbolos.getTokens();
+	            	for(Token t : tokensID)
+	            		System.out.println(t.imprimirTokenID());
 	            } else {
 	            	System.out.print(TipoErroSintatico.getDescricao(erro,Producoes.linha,Producoes.nomeToken));
+	            	
 	            }
             } else 
             	System.out.println("\n\nErro Léxico!");
