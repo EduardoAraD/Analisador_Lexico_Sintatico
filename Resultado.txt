@@ -99,3 +99,14 @@
 , token( WS )>
 < 19, END, token( END )>
 < 19, ., token( RELOP,DOT )>
+
+ Analise Sintática 
+ Tabela de Simbolos
+
+< 1, PZIM, token( id 0 ), Tipo: PROGRAM, Criado: SIM, Utilizado: SIM >
+< 1, id, token( id 1 ), Tipo: DESCONHECIDO, Criado: NÂO, Utilizado: SIM >
+< 3, ano, token( id 2 ), Tipo: VAR, Criado: SIM, Utilizado: SIM >
+< 4, anoatual, token( id 3 ), Tipo: VAR, Criado: SIM, Utilizado: SIM >
+< 5, soma, token( id 4 ), Tipo: VAR, Criado: SIM, Utilizado: SIM >
+< 7, writeln, token( id 5 ), Tipo: DESCONHECIDO, Criado: NÂO, Utilizado: SIM >
+< 12, readln, token( id 6 ), Tipo: DESCONHECIDO, Criado: NÂO, Utilizado: SIM >

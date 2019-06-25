@@ -35,5 +35,12 @@ public class TabelaSimbolos {
     public static ArrayList<Token> getTokens(){
     	return linhasTabela;
     }
+    public static Token getToken(String nome) {
+    	for(Token token : linhasTabela) {
+    		if(token.getNome_atributo().equals(nome))
+    			return token;
+    	}
+    	return null;
+    }
     
 }

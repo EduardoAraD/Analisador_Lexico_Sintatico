@@ -6,6 +6,7 @@
 package analisador.sintatico;
 
 import analisador.lexico.GerandoTokens;
+import analisador.lexico.TabelaSimbolos;
 import analisador.lexico.Token;
 
 /**
@@ -23,7 +24,7 @@ public class Producoes {
         	if(tes == TipoErroSintatico.CORRETO){
                 token = GerandoTokens.getNextToken();
                 if(token.getPadrao() == 59){ // simbolo (
-                	tes = identifier_list(0,false,true);
+                	tes = identifier_list(-1,false,true);
                     if(tes == TipoErroSintatico.CORRETO){
                         token = GerandoTokens.getNextToken();
                         if(token.getPadrao() != 60){
@@ -99,7 +100,7 @@ public class Producoes {
             if(tes == TipoErroSintatico.CORRETO){
                 token = GerandoTokens.getNextToken();
                 if(token.getPadrao() == 55){ // simbolo ;
-                	tes = identifier(0,false,false);
+                	tes = identifier(-1,false,false);
                 	while(tes == TipoErroSintatico.CORRETO){
                 		GerandoTokens.voltaToken();
                 		tes = const_definition();
@@ -108,7 +109,7 @@ public class Producoes {
                 		token = GerandoTokens.getNextToken();
                         if(token.getPadrao() != 55) // simbolo ;
                             return erro(token,TipoErroSintatico.SEMI_COLON); // falta de ;
-                        tes = identifier(0,false,false);
+                        tes = identifier(-1,false,false);
                     }
                     return TipoErroSintatico.CORRETO;
                 }
@@ -137,7 +138,7 @@ public class Producoes {
     		if(tes == TipoErroSintatico.CORRETO) {
     			token = GerandoTokens.getNextToken();
     			if(token.getPadrao() == 55) { // simbolo ;
-    				tes = identifier(0,false,false);
+    				tes = identifier(-1,false,false);
     				while(tes == TipoErroSintatico.CORRETO) {
     					GerandoTokens.voltaToken();
     					tes = type_definition();
@@ -146,7 +147,7 @@ public class Producoes {
     					token = GerandoTokens.getNextToken();
     					if(token.getPadrao() != 55) // simbolo ;
     						return erro(token,TipoErroSintatico.SEMI_COLON); // erro falta de ;
-    					tes = identifier(0,false,false);
+    					tes = identifier(-1,false,false);
     				}
     				return TipoErroSintatico.CORRETO;
     			}
@@ -171,7 +172,7 @@ public class Producoes {
     public static TipoErroSintatico type(){
     	Token token = GerandoTokens.getNextToken();
     	if(token.getPadrao() == 71) { // simbolo ^
-    		return identifier(0,false,true);
+    		return identifier(-1,false,true);
     	} else if(token.getPadrao() == 2){ // palavra reservada ARRAY
     		token = GerandoTokens.getNextToken();
     		if(token.getPadrao() == 57) { // simbolo [
@@ -220,11 +221,11 @@ public class Producoes {
     public static TipoErroSintatico simple_type(){
     	Token token = GerandoTokens.getNextToken();
     	if(token.getPadrao() == 59) { // simbolo (
-    		TipoErroSintatico tes = identifier(0,false,true);
+    		TipoErroSintatico tes = identifier(-1,false,true);
     		if(tes == TipoErroSintatico.CORRETO) {
     			token = GerandoTokens.getNextToken();
     			while(token.getPadrao() == 56) { // simbolo ,
-    				tes = identifier(0,false,true);
+    				tes = identifier(-1,false,true);
     				if(tes == TipoErroSintatico.CORRETO)
     					return tes; // ERRO falta funcao IDENTIFIER
     				token = GerandoTokens.getNextToken();
@@ -247,7 +248,7 @@ public class Producoes {
     			// erro falta de ..
     		}
     		GerandoTokens.setNumero_token(tok);
-    		return identifier(0,false,true);
+    		return identifier(-1,false,true);
     		// erro falta de _const()
     	}
     }
@@ -263,11 +264,11 @@ public class Producoes {
     		return TipoErroSintatico.CORRETO;
     	else {
     		GerandoTokens.voltaToken();
-    		return identifier(0,false,true);
+    		return identifier(-1,false,true);
     	}
     }
     public static TipoErroSintatico field_list(){
-    	TipoErroSintatico tes = identifier_list(0,false,true);
+    	TipoErroSintatico tes = identifier_list(-1,false,true);
     	if(tes == TipoErroSintatico.CORRETO) {
     		Token token = GerandoTokens.getNextToken();
     		if(token.getPadrao() == 54) { // simbolo :
@@ -294,7 +295,7 @@ public class Producoes {
     		if(tes == TipoErroSintatico.CORRETO) {
     			token = GerandoTokens.getNextToken();
     			if(token.getPadrao() == 55) { // simbolo ;
-    				tes = identifier(0,false,false);
+    				tes = identifier(-1,false,false);
     				while(tes == TipoErroSintatico.CORRETO) {
     					GerandoTokens.voltaToken();
     					tes = var_declaration();
@@ -303,7 +304,7 @@ public class Producoes {
     					token = GerandoTokens.getNextToken();
     					if(token.getPadrao() != 55) // simbolo ;
     						return erro(token, TipoErroSintatico.SEMI_COLON); // erro falta do simbolo ;
-    					tes = identifier(0,false,false);
+    					tes = identifier(-1,false,false);
     				}
     				return TipoErroSintatico.CORRETO;
     			}
@@ -390,7 +391,7 @@ public class Producoes {
     				return tes;
     			token = GerandoTokens.getNextToken();
     			if(token.getPadrao() == 54) { // simbolo :
-    				tes = identifier(0,false,true);
+    				tes = identifier(-1,false,true);
     				if(tes == TipoErroSintatico.CORRETO) {
     					token = GerandoTokens.getNextToken();
     					if(token.getPadrao() == 55) { // simbolo ;
@@ -436,7 +437,7 @@ public class Producoes {
     		if(tes == TipoErroSintatico.CORRETO) {
     			token = GerandoTokens.getNextToken();
 				if(token.getPadrao() == 54) { // simbolo :
-					return identifier(0,false,true);
+					return identifier(-1,false,true);
 				}
 				return erro(token, TipoErroSintatico.COLON);// erro falta de simbolo :
     		}
@@ -450,7 +451,7 @@ public class Producoes {
     	if(tes == TipoErroSintatico.CORRETO) {
     		token = GerandoTokens.getNextToken();
     		if(token.getPadrao() == 54) { // simbolo :
-    			return identifier(0,false,true);
+    			return identifier(-1,false,true);
     		}
     		return erro(token, TipoErroSintatico.COLON); //erro, falta do simbolo :
     	}
@@ -508,7 +509,7 @@ public class Producoes {
     	else if(token.getPadrao() == 3) // pakavra Rservada BEGIN
     		return compound_statement();
     	else {
-    		TipoErroSintatico tes = identifier(0,false,false);
+    		TipoErroSintatico tes = identifier(-1,false,false);
     		if(tes == TipoErroSintatico.CORRETO) {
     			GerandoTokens.voltaToken();
         		tes = assing_statement();
@@ -525,7 +526,7 @@ public class Producoes {
     }
     public static TipoErroSintatico assing_statement(){
     	int num_token = GerandoTokens.getNumero_token();
-    	TipoErroSintatico tes = identifier(0,false,true);
+    	TipoErroSintatico tes = identifier(-1,false,true);
     	if(tes == TipoErroSintatico.CORRETO) { // padrao IDENTIFIER
     		tes = infipo();
     		if(tes != TipoErroSintatico.CORRETO)
@@ -540,7 +541,7 @@ public class Producoes {
     	return tes; // erro, falta padrao IDENTIFIER
     }
     public static TipoErroSintatico procedure_call(){
-    	TipoErroSintatico tes = identifier(0,false,true);
+    	TipoErroSintatico tes = identifier(-1,false,true);
     	if(tes == TipoErroSintatico.CORRETO) { // padrao IDENTIFIER
     		Token token = GerandoTokens.getNextToken();
     		if(token.getPadrao() == 59) { // simbolo (
@@ -631,7 +632,7 @@ public class Producoes {
     	int num_token = GerandoTokens.getNumero_token();
     	Token token = GerandoTokens.getNextToken();
     	if(token.getPadrao() == 13) { // palavra Reservada FOR
-    		TipoErroSintatico tes = identifier(0,false,true);
+    		TipoErroSintatico tes = identifier(-1,false,true);
     		if(tes == TipoErroSintatico.CORRETO) {
     			tes = infipo();
     			if(tes == TipoErroSintatico.CORRETO) {
@@ -667,13 +668,13 @@ public class Producoes {
     public static TipoErroSintatico with_statement(){
     	Token token = GerandoTokens.getNextToken();
     	if(token.getPadrao() == 38) { // palavra Reservada WITH
-    		TipoErroSintatico tes = identifier(0,false,true);
+    		TipoErroSintatico tes = identifier(-1,false,true);
     		if(tes == TipoErroSintatico.CORRETO) {
     			tes = infipo();
     			if(tes == TipoErroSintatico.CORRETO) {
     				token = GerandoTokens.getNextToken();
     				while(token.getPadrao() == 56) { // simbolo ,
-    					tes = identifier(0,false,true);
+    					tes = identifier(-1,false,true);
     					if(tes != TipoErroSintatico.CORRETO)
     						return tes; // erro falta funcao IDENTIFIER
     					tes = infipo();
@@ -729,7 +730,7 @@ public class Producoes {
     	if(token.getPadrao() == 41) { // padrao NUMBER
     	}else {
     		GerandoTokens.voltaToken();
-    		TipoErroSintatico tes = identifier(0,false,true);
+    		TipoErroSintatico tes = identifier(-1,false,true);
     		if(tes != TipoErroSintatico.CORRETO) {
     			return TipoErroSintatico.NUMBER_ID; // falta do padrao NUMBER ou funcao IDENTIFIER
     		}
@@ -771,7 +772,7 @@ public class Producoes {
     		}
     		return tes; // erro funcao expr()
     	} else if(token.getPadrao() == 53) { // simbolo .
-    		TipoErroSintatico tes = identifier(0,false,true);
+    		TipoErroSintatico tes = identifier(-1,false,true);
     		if(tes == TipoErroSintatico.CORRETO) {
     			return infipo();
     		}
@@ -913,7 +914,7 @@ public class Producoes {
     		return factor();
     	} else {
     		GerandoTokens.voltaToken();
-    		TipoErroSintatico tes = identifier(0,false,true);
+    		TipoErroSintatico tes = identifier(-1,false,true);
     		if(tes == TipoErroSintatico.CORRETO) {
     			token = GerandoTokens.getNextToken();
         		if(token.getPadrao() == 59) { // simbolo (
@@ -939,12 +940,13 @@ public class Producoes {
     public static TipoErroSintatico identifier(int tipo,boolean criado, boolean utilizado) {
     	Token token = GerandoTokens.getNextToken();
     	if(token.getPadrao() == 42) { // padrao IDENTIFIER
-    		if(token.getTipoID() == -1 && tipo != 0) 
-    			token.setTipoID(tipo);
+    		Token tsToken = TabelaSimbolos.getToken(token.getNome_atributo());
+    		if(tsToken.getTipoID() == -1)
+    			tsToken.setTipoID(tipo);
     		if(criado) 
-    			token.setCriado(criado);
+    			tsToken.setCriado(criado);
     		if(utilizado)
-    			token.setUtilizado(utilizado);
+    			tsToken.setUtilizado(utilizado);
     		return TipoErroSintatico.CORRETO;
     	}
     	else if(token.getPadrao() == 4) // palavra Reservada BOOLEAN 

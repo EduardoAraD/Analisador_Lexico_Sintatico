@@ -84,25 +84,27 @@ public class Token {
 		this.tipoID = tipoID;
 	}
     
-    public void imprimir(){ // imprime os atributos do token
+    public String imprimir(){ // imprime os atributos do token
         //TabelaPalavraReservada ts = new TabelaPalavraReservada();
+    	String imprimirToken = "";
         if(this.erro){ // imprime os Token com erros
             if(padrao == 45){ // resolvendo a duplicidade do erro do Comment
                 if(this.nome_atributo.charAt(0) == '{')
                     padrao = 49;
             }    
-            System.out.println("Erro na linha: "+numero_linha+", no padrao: "+TabelaPalavraReservada.padrao.get(padrao));
-            System.out.println(TiposErro.getDescricao(TiposErro.getTiposErro(padrao))+" na linha "+numero_linha);
+            imprimirToken = "Erro na linha: "+numero_linha+", no padrao: "+TabelaPalavraReservada.padrao.get(padrao);
+            imprimirToken += TiposErro.getDescricao(TiposErro.getTiposErro(padrao))+" na linha "+numero_linha;
         } else {
             if(padrao == 42) // padrao IDENTIFIER
-                System.out.println("< "+numero_linha+", "+nome_atributo+", token( id "+TabelaSimbolos.getIdToken(this)+" )>");
+                imprimirToken = "< "+numero_linha+", "+nome_atributo+", token( id "+TabelaSimbolos.getIdToken(this)+" )>";
             else if(padrao > 50) // padrao OPERADOR
-                System.out.println("< "+numero_linha+", "+nome_atributo+", token( RELOP,"+TabelaPalavraReservada.padrao.get(padrao)+" )>");
+                imprimirToken = "< "+numero_linha+", "+nome_atributo+", token( RELOP,"+TabelaPalavraReservada.padrao.get(padrao)+" )>";
             else if(padrao >= 73) // padrao DELIM
-                System.out.println("< "+numero_linha+", token( "+TabelaPalavraReservada.padrao.get(padrao)+" )>");
+                imprimirToken = "< "+numero_linha+", token( "+TabelaPalavraReservada.padrao.get(padrao)+" )>";
             else // PALAVRAS RESERVADAS
-                System.out.println("< "+numero_linha+", "+nome_atributo+", token( "+TabelaPalavraReservada.padrao.get(padrao)+" )>");
+                imprimirToken = "< "+numero_linha+", "+nome_atributo+", token( "+TabelaPalavraReservada.padrao.get(padrao)+" )>";
         }
+        return imprimirToken;
     }
     
     public String imprimirTokenID() {

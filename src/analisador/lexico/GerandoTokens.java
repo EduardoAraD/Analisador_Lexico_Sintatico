@@ -89,7 +89,7 @@ public class GerandoTokens {
         Token tok = null;
         for(i = 0; i < tokens.size(); i++){
             tok = (Token)tokens.get(i);
-            tok.imprimir();
+            System.out.println(tok.imprimir());
         }
         numero_token = 0;
     }

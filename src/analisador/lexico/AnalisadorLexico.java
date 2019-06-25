@@ -41,7 +41,6 @@ public class AnalisadorLexico {
             System.out.println("Arquivo funcionando!\n");
             GerandoTokens.gerarTokens(); // Funcao que cria os tokens
             GerandoTokens.lerTokens(); // Funcao que imprime do console os tokens encontrados
-            LeituraArquivo.GravacaodeResultado(); // Funcao que armazena o resultado no arquivo 
             if(!GerandoTokens.getErro()) {
             	TipoErroSintatico erro = Producoes.program();
 	            if(erro == TipoErroSintatico.CORRETO) {
@@ -49,6 +48,8 @@ public class AnalisadorLexico {
 	            	ArrayList<Token> tokensID = TabelaSimbolos.getTokens();
 	            	for(Token t : tokensID)
 	            		System.out.println(t.imprimirTokenID());
+	            	
+	            	LeituraArquivo.GravacaodeResultado(); // Funcao que armazena o resultado no arquivo
 	            } else {
 	            	System.out.print(TipoErroSintatico.getDescricao(erro,Producoes.linha,Producoes.nomeToken));
 	            	
